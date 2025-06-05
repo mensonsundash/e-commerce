@@ -29,6 +29,7 @@ const products = [
     }
 ];
 
+//filter bycategory
 function filterByCategory(products, category, partial = false) {
     const categoryLower = category.toLowerCase();
 
@@ -40,9 +41,7 @@ function filterByCategory(products, category, partial = false) {
     })
 }
 
-// console.log(filterByCategory(products, "clothing")); // [T-Shirt]
-// console.log(filterByCategory(products, "Elect", true)); // [Wireless Mouse] (if you had one)
-
+//filter by price range
 function filterByPriceRange(products, min, max) {
 
     if(!Array.isArray(products) || typeof min !== 'number' || typeof max !== 'number') return [];
@@ -51,5 +50,16 @@ function filterByPriceRange(products, min, max) {
     return products.filter(product => product.price >= min && product.price <= max);
 }
 
-console.log(filterByPriceRange(products, 10, 50)); // [Shirt]
-console.log(filterByPriceRange(products, 60, 5));  // [Shirt, Pen] (if swapped)
+//searching products
+function searchByKeyword(products, keywords) {
+    const keywordLower = keywords.toLowerCase();
+
+    if(!Array.isArray(products) || !keywords) return [];
+
+    return products.filter(product => {
+        const productName = product.name.toLowerCase();
+        const productCategory = product.category.toLowerCase();
+        
+        return productName.includes(keywordLower) || productCategory.includes(keywordLower);
+    });
+}
