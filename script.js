@@ -63,3 +63,8 @@ function searchByKeyword(products, keywords) {
         return productName.includes(keywordLower) || productCategory.includes(keywordLower);
     });
 }
+
+//stock availability check
+function getAvailableProducts(products) {
+    return products.filter(product => product.inStock);
+}
