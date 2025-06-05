@@ -43,3 +43,13 @@ function filterByCategory(products, category, partial = false) {
 // console.log(filterByCategory(products, "clothing")); // [T-Shirt]
 // console.log(filterByCategory(products, "Elect", true)); // [Wireless Mouse] (if you had one)
 
+function filterByPriceRange(products, min, max) {
+
+    if(!Array.isArray(products) || typeof min !== 'number' || typeof max !== 'number') return [];
+    if(min > max) [min, max] = [max, min];
+
+    return products.filter(product => product.price >= min && product.price <= max);
+}
+
+console.log(filterByPriceRange(products, 10, 50)); // [Shirt]
+console.log(filterByPriceRange(products, 60, 5));  // [Shirt, Pen] (if swapped)
