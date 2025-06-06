@@ -1,39 +1,19 @@
+// Sample product data
 const products = [
-    {
-        id: 1,
-        name: "Wireless Mouse",
-        category: "electronics",
-        price: 29.99,
-        inStock: true
-    },
-    {
-        id: 2,
-        name: "T-Shirt",
-        category: "clothing",
-        price: 19.99,
-        inStock: false
-    },
-    {
-        id: 3,
-        name: "32\" Monitor",
-        category: "electronics",
-        price: 640,
-        inStock: true
-    },
-    {
-        id: 4,
-        name: "Camping Chair",
-        category: "outdoor",
-        price: 54,
-        inStock: true
-    }
+  { id: 1, name: "Wireless Mouse", category: "electronics", price: 29.99, inStock: true },
+  { id: 2, name: "T-Shirt", category: "clothing", price: 19.99, inStock: false },
+  { id: 3, name: "Bluetooth Headphones", category: "electronics", price: 49.99, inStock: true },
+  { id: 4, name: "Jeans", category: "clothing", price: 39.99, inStock: true }
 ];
 
 //filter bycategory
 function filterByCategory(products, category, partial = false) {
+    
+    if(!Array.isArray(products)|| !category)  return [];
+    
     const categoryLower = category.toLowerCase();
 
-    if(!Array.isArray(products)|| !category)  return [];
+    
 
     return products.filter(product => {
         const productCategoryLower = product.category.toLowerCase();
@@ -54,7 +34,7 @@ function filterByPriceRange(products, min, max) {
 function searchByKeyword(products, keywords) {
     const keywordLower = keywords.toLowerCase();
 
-    if(!Array.isArray(products) || !keywords) return [];
+    if(!Array.isArray(products) || !keywords) return products;
 
     return products.filter(product => {
         const productName = product.name.toLowerCase();
@@ -68,3 +48,4 @@ function searchByKeyword(products, keywords) {
 function getAvailableProducts(products) {
     return products.filter(product => product.inStock);
 }
+
