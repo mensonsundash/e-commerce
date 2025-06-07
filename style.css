@@ -60,19 +60,31 @@ input[type="checkbox"] {
     transform: scale(1.1);
     margin-right: 8px;
 }
-
+#productList {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
 .product-card {
     background: var(--card-bg);
-    border-left: 4px solid var(--primary-color);
+    background-color: #f4f4f4;
+    border: 1px solid #ccc;
+    border-radius: 8px;
     padding: 20px;
     margin-bottom: 20px;
-    border-radius: 8px;
     box-shadow: var(--shadow);
+    text-align: center;
+    aspect-ratio: 1 / 1; /* Keeps square shape */
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .product-card:hover {
-    transform: translateY(-4px);
+    /* transform: translateY(-4px); */
+    transform: scale(1.05);
+    cursor: pointer;
     box-shadow: rgba(0, 0, 0, 0.15) 0px 6px 12px;
 }
 
