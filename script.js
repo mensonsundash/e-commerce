@@ -189,6 +189,7 @@ function renderCartSummary() {
     const cartList = document.getElementById('cartList');
     const cartTotal = document.getElementById('cartTotal');
     const cartCount = document.getElementById('cartCount');
+    
 
     cartList.innerHTML = '';
 
@@ -208,11 +209,12 @@ function renderCartSummary() {
 
         const div = document.createElement('div');
 
-        div.classList.add('product-card');
+        div.classList.add('cart-item');
         div.innerHTML = `
-            <h4>${item.name}</h4>
-            <p>Price: $${item.price.toFixed(2)} x ${item.quantity} = $${itemTotal.toFixed(2)}</p>
-            <button onclick="removeFromCart(${item.id})"> ❌ Remove </button>
+            <span class="item-name">${item.name}</span>
+            <span class="item-qty">${item.quantity}</span>
+            <span class="item-price">$${item.price.toFixed(2)}</span>
+            <button class="remove-btn" onclick="removeFromCart(${item.id})"> ❌ </button>
         `;
         cartList.appendChild(div);
     });

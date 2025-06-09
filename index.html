@@ -34,14 +34,27 @@
 
     <button onclick="toggleCart()" id="cartBtn"><h4>🛒 <span id="cartCount"></span></h4></button>
     <div id="cartSidebar" class="cart-sidebar hidden">
+        <!--Cart Top Bar-->
         <div class="cart-header">
             <h2>🛒 Your Cart </h2>
             <button onclick="toggleCart()" class="close-btn">x</button>
         </div>
+        <!-- Headline row -->
+        <div class="cart-headings">
+            <span>Product</span>
+            <span>Qty</span>
+            <span>Price</span>
+            <span></span> <!-- for delete button -->
+        </div>
+        <!--Product rows-->
         <div id="cartItems" class="cart-items">
             <div id="cartList"></div>
             <h3 id="cartTotal"></h3>
-            <button onclick="clearCart()">Clear Cart</button>
+            
+        </div>
+        <!--Clear Cart Button-->
+        <div class="clear-cart">
+            <button class="clear-cart-btn" onclick="clearCart()">🗑️ Clear Cart</button>
         </div>
     </div>
 
