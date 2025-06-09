@@ -143,9 +143,48 @@ function addToCart(product) {
 
 //render the added products in cart summary
 function renderCartSummary() {
-    console.log('Cart rendered');
+    console.log("renderCart*****")
+    const cartList = document.getElementById('cartList');
+    const cartTotal = document.getElementById('cartTotal');
+
+    cartList.innerHTML = '';
+
+    if(cart.length === 0) {
+        cartList.innerHTML = "<p>Cart is empty.</p>";
+        cartTotal.textContent = '';
+        return;
+    }
+
+    let total = 0;
+
+    cart.forEach( item => {
+        const itemTotal = item.price * item.quantity;
+        total += itemTotal;
+
+        const div = document.createElement('div');
+
+        div.classList.add('product-card');
+        div.innerHTML = `
+            <h4>${item.name}</h4>
+            <p>Price: $${item.price.toFixed(2)} x ${item.quantity} = $${itemTotal.toFixed(2)}</p>
+            <button onclick="removeFromCart(${item.id})"> ❌ Remove </button>
+        `;
+        cartList.appendChild(div);
+    });
+
+    cartTotal.textContent = `Total: $${total.toFixed(2)}`;
 }
 
+//remove product from cart
+function removeFromCart() {
+    // remove product from cart logic statement
+    renderCartSummary();
+}
+
+//clear cart 
+function clearCart() {
+    // clear the cart array statement
+}
 
 /**
  * Trigger Events
