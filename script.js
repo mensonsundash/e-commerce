@@ -22,6 +22,18 @@ const inputTagsClass = [
 let cart = [];
 
 /**
+ * loading windows on page load
+ */
+
+window.onload = function () {
+    //checking localstorage for cart
+    if(localStorage.getItem("cart")){
+        cart = JSON.parse(localStorage.getItem("cart"));//parsing JSON data
+    }
+    renderCartSummary();//rendering cartSummary
+}
+
+/**
  * Utility Functions
  */
 
@@ -164,6 +176,7 @@ function renderCartSummary() {
 
     if(cart.length === 0) {
         cartList.innerHTML = "<p>Cart is empty.</p>";
+        cartCount.textContent = 0;
         cartTotal.textContent = '';
         return;
     }
@@ -185,6 +198,7 @@ function renderCartSummary() {
         `;
         cartList.appendChild(div);
     });
+    
     cartCount.textContent =  cart.length;
     cartTotal.textContent = `Total: $${total.toFixed(2)}`;
 }
