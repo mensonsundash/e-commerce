@@ -126,18 +126,15 @@ function handleAddToCart(productId) {
 
 //add product into cart
 function addToCart(product) {
-    let existingItem = -1; //cart is empty
+    let existingItem = -1; //set cart as empty
     
     if(localStorage.getItem("cart")){
         cart = JSON.parse(localStorage.getItem("cart"));
         existingItem = cart.findIndex( item => item.id === product.id);
     }
     
-
-    
-
     if(existingItem > -1) {
-        console.log("if cart is empty");
+        console.log("if cart has something");
         cart[existingItem].quantity += 1;
     }else {
         console.log("if cart is empty");
@@ -168,21 +165,19 @@ function renderCartSummary() {
     cart.forEach( item => {
         const itemTotal = item.price * item.quantity;
         total += itemTotal;
-        console.log("ItemTotal:", itemTotal);
-        console.log("TOTAL:", total);
 
         const div = document.createElement('div');
 
         div.classList.add('product-card');
         div.innerHTML = `
             <h4>${item.name}</h4>
-            <p>Price: $${item.price} x ${item.quantity} = $${itemTotal}</p>
+            <p>Price: $${item.price.toFixed(2)} x ${item.quantity} = $${itemTotal.toFixed(2)}</p>
             <button onclick="removeFromCart(${item.id})"> ❌ Remove </button>
         `;
         cartList.appendChild(div);
     });
 
-    cartTotal.textContent = `Total: $${parseInt(total)}`;
+    cartTotal.textContent = `Total: $${total.toFixed(2)}`;
 }
 
 //remove product from cart
