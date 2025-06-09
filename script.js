@@ -151,6 +151,7 @@ function renderCartSummary() {
     
     const cartList = document.getElementById('cartList');
     const cartTotal = document.getElementById('cartTotal');
+    const cartCount = document.getElementById('cartCount');
 
     cartList.innerHTML = '';
 
@@ -161,6 +162,7 @@ function renderCartSummary() {
     }
 
     let total = 0;
+    // let cartCountValue = 0;
 
     cart.forEach( item => {
         const itemTotal = item.price * item.quantity;
@@ -176,7 +178,7 @@ function renderCartSummary() {
         `;
         cartList.appendChild(div);
     });
-
+    cartCount.textContent =  cart.length;
     cartTotal.textContent = `Total: $${total.toFixed(2)}`;
 }
 
