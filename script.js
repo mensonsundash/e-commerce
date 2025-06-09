@@ -182,8 +182,10 @@ function renderCartSummary() {
 
 //remove product from cart
 function removeFromCart(id) {
-    // remove product from cart logic statement
+    // filter product from cart that is not with remove item id
     cart = cart.filter(item => item.id !== id);
+    //update localStorage Cart item without remove id
+    localStorage.setItem("cart", JSON.stringify(cart));
     renderCartSummary();
 }
 
@@ -191,6 +193,7 @@ function removeFromCart(id) {
 function clearCart() {
     // clear the cart array statement
     cart = [];
+    localStorage.removeItem("cart");
     renderCartSummary();
 }
 
