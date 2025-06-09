@@ -153,6 +153,9 @@ input[type="checkbox"] {
   border-radius: 6px;
   cursor: pointer;
 }
+#cartBtn h4 {
+  margin: 0px;
+}
 
 /* Sidebar base */
 .cart-sidebar {
