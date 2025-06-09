@@ -26,12 +26,30 @@ let cart = [];
  */
 
 window.onload = function () {
+    // loading products according to filters
+    getFilteredProducts();
+
     //checking localstorage for cart
     if(localStorage.getItem("cart")){
         cart = JSON.parse(localStorage.getItem("cart"));//parsing JSON data
     }
     renderCartSummary();//rendering cartSummary
+
+    
 }
+
+
+/**
+ * Trigger Events
+ */
+
+//Loop through all tags id
+inputTagsClass.forEach( id => {
+    document.getElementById(id).addEventListener("input", getFilteredProducts);
+    document.getElementById(id).addEventListener("change", getFilteredProducts);
+})
+
+
 
 /**
  * Utility Functions
@@ -83,7 +101,7 @@ function getAvailableProducts(products) {
 //toggle cartsidebar
 function toggleCart(){
     const cartsidebar = document.getElementById('cartSidebar');
-    cartsidebar.classList.toggle('visible')
+    cartsidebar.classList.toggle('visible');
 }
 
 
@@ -220,18 +238,3 @@ function clearCart() {
     renderCartSummary();
 }
 
-/**
- * Trigger Events
- */
-
-//Loop through all tags id
-inputTagsClass.forEach( id => {
-    document.getElementById(id).addEventListener("input", getFilteredProducts);
-    document.getElementById(id).addEventListener("change", getFilteredProducts);
-})
-
-/**
- * function calling
- */
-// Initial display
-getFilteredProducts();
