@@ -119,25 +119,33 @@ function displayProducts(productArray) {
 //handling Add To cart
 function handleAddToCart(productId) {
     const product = products.find( p => p.id === productId);
-    return console.log("Added Product into Cart: ", product)
-    // addToCart(product);
-    // renderCartSummary();
+    console.log("Added Product into Cart: ", product)
+    addToCart(product);
+    renderCartSummary();
 }
 
 //add product into cart
 function addToCart(product) {
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    cart = JSON.parse(localStorage.getItem("cart"));
 
-    const index = cart.findIndex( item => item.productId === product.productId);
+    const existingItem = cart.findIndex( item => item.id === product.id);
 
-    if(index > -1) {
-        cart[index].quantity += 1;
+    if(existingItem > -1) {
+        cart[existingItem].quantity += 1;
     }else {
         cart.push({ ...product, quantity: 1 });
     }
 
+    
     localStorage.setItem("cart", JSON.stringify(cart));
+    alert(`${product.name} added to cart`);
 }
+
+//render the added products in cart summary
+function renderCartSummary() {
+    console.log('Cart rendered');
+}
+
 
 /**
  * Trigger Events
