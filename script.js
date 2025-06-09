@@ -68,6 +68,12 @@ function getAvailableProducts(products) {
     return products.filter(product => product.inStock);
 }
 
+//toggle cartsidebar
+function toggleCart(){
+    const cartsidebar = document.getElementById('cartSidebar');
+    cartsidebar.classList.toggle('visible')
+}
+
 
 /**
  * Resulting Functions
@@ -144,6 +150,7 @@ function addToCart(product) {
     
     localStorage.setItem("cart", JSON.stringify(cart));
     alert(`${product.name} added to cart`);
+    toggleCart();
 }
 
 //render the added products in cart summary
