@@ -181,14 +181,17 @@ function renderCartSummary() {
 }
 
 //remove product from cart
-function removeFromCart() {
+function removeFromCart(id) {
     // remove product from cart logic statement
+    cart = cart.filter(item => item.id !== id);
     renderCartSummary();
 }
 
 //clear cart 
 function clearCart() {
     // clear the cart array statement
+    cart = [];
+    renderCartSummary();
 }
 
 /**
