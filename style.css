@@ -141,6 +141,8 @@ input[type="checkbox"] {
 
 
 
+
+
 @media (min-width: 768px) {
     .filters {
         grid-template-columns: 1fr 1fr;

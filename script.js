@@ -6,6 +6,20 @@ const products = [
   { id: 4, name: "Jeans", category: "clothing", price: 39.99, inStock: true }
 ];
 
+/**
+ * Variable Initialization/assignment
+ */
+//Event listeners
+const inputTagsClass = [
+    "searchInput", 
+    "categoryFilter", 
+    "minPrice", 
+    "maxPrice", 
+    "inStockOnly"
+];
+
+//Initialize empty cart array
+let cart = [];
 
 /**
  * Utility Functions
@@ -76,7 +90,7 @@ function getFilteredProducts() {
     displayProducts(filtered);
 }
 
-//function to display products UI Rendered
+//display products UI Rendered
 function displayProducts(productArray) {
     const container = document.getElementById('productList');
 
@@ -95,25 +109,48 @@ function displayProducts(productArray) {
             <p>Category: ${product.category}</p>
             <p>Price: ${product.price.toFixed(2)}</P>
             <p>${product.inStock ? "✅ In Stock" : "❌ Out of Stock"}</p>
-            <button class="add-to-cart-btn" data-id="${product.id}">Add to cart</button>
-        `;
+            <button class="add-to-cart-btn" onclick="handleAddToCart(${product.id})">Add to cart</button>
+        `;// <button class="add-to-cart-btn" data-id="${product.id}">Add to cart</button>
         container.appendChild(card);
     });
 
 }
 
+//handling Add To cart
+function handleAddToCart(productId) {
+    const product = products.find( p => p.id === productId);
+    return console.log("Added Product into Cart: ", product)
+    // addToCart(product);
+    // renderCartSummary();
+}
 
-//Event listeners
-["searchInput", "categoryFilter", "minPrice", "maxPrice", "inStockOnly"].forEach( id => {
+//add product into cart
+function addToCart(product) {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    const index = cart.findIndex( item => item.productId === product.productId);
+
+    if(index > -1) {
+        cart[index].quantity += 1;
+    }else {
+        cart.push({ ...product, quantity: 1 });
+    }
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+}
+
+/**
+ * Trigger Events
+ */
+
+//Loop through all tags id
+inputTagsClass.forEach( id => {
     document.getElementById(id).addEventListener("input", getFilteredProducts);
     document.getElementById(id).addEventListener("change", getFilteredProducts);
 })
 
-// document.getElementById('searchInput').addEventListener("input", getFilteredProducts);
-// document.getElementById('categoryFilter').addEventListener("change", getFilteredProducts);
-// document.getElementById('minPrice').addEventListener("input", getFilteredProducts);
-// document.getElementById('maxPrice').addEventListener("input", getFilteredProducts);
-// document.getElementById('inStockOnly').addEventListener("input", getFilteredProducts)
-
+/**
+ * function calling
+ */
 // Initial display
 getFilteredProducts();
