@@ -183,6 +183,22 @@ function addToCart(product) {
     toggleCart();
 }
 
+//update cart while +/- of the quantity
+function updateQuantity(productId, newQty) {
+    if(localStorage.getItem("cart")){
+        cart = JSON.parse(localStorage.getItem("cart"));
+        const item = cart.find( p => p.id === productId);
+        
+        if(item){
+            item.quantity = newQty;
+            localStorage.setItem("cart", JSON.stringify(cart));
+            renderCartSummary();
+        }
+    }
+    
+    
+}
+
 //render the added products in cart summary
 function renderCartSummary() {
     
@@ -192,7 +208,7 @@ function renderCartSummary() {
     
 
     cartList.innerHTML = '';
-
+    console.log("rendered Cart:", cart)
     if(cart.length === 0) {
         cartList.innerHTML = "<p>Cart is empty.</p>";
         cartCount.textContent = 0;
@@ -208,14 +224,21 @@ function renderCartSummary() {
         total += itemTotal;
 
         const div = document.createElement('div');
-
+        const quantityCounts = [1,2,3,4,5,6,7,8,9,10];
         div.classList.add('cart-item');
         div.innerHTML = `
             <span class="item-name">${item.name}</span>
-            <span class="item-qty">${item.quantity}</span>
+            <select class="qty-selector" onchange="updateQuantity(${item.id}, this.value)">
+                ${
+                    quantityCounts.map(qty => 
+                        `<option value="${qty}" ${qty === parseInt(item.quantity) ? "selected": ""}>${qty}</option>`
+                    )
+                } 
+            </select>
+            
             <span class="item-price">$${item.price.toFixed(2)}</span>
             <button class="remove-btn" onclick="removeFromCart(${item.id})"> ❌ </button>
-        `;
+        `;//<span class="item-qty">${item.quantity}</span>
         cartList.appendChild(div);
     });
     
