@@ -155,7 +155,6 @@ function displayProducts(productArray) {
 //handling Add To cart
 function handleAddToCart(productId) {
     const product = products.find( p => p.id === productId);
-    console.log("Added Product into Cart: ", product)
     addToCart(product);
     renderCartSummary();
 }
@@ -170,10 +169,8 @@ function addToCart(product) {
     }
     
     if(existingItem > -1) {
-        console.log("if cart has something");
         cart[existingItem].quantity += 1;
     }else {
-        console.log("if cart is empty");
         cart.push({ ...product, quantity: 1 });
     }
 
@@ -208,7 +205,6 @@ function renderCartSummary() {
     
 
     cartList.innerHTML = '';
-    console.log("rendered Cart:", cart)
     if(cart.length === 0) {
         cartList.innerHTML = "<p>Cart is empty.</p>";
         cartCount.textContent = 0;
