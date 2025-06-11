@@ -278,6 +278,26 @@ input[type="checkbox"] {
   background-color: #d32f2f;
 }
 
+/* cart increment or decrement */
+.qty-controls {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 8px 0;
+}
+
+.qty-btn {
+  padding: 4px 8px;
+  font-size: 16px;
+  background-color: #eee;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.qty-btn:hover {
+  background-color: #ddd;
+}
 
 @media (min-width: 768px) {
     .filters {

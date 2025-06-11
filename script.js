@@ -181,15 +181,24 @@ function addToCart(product) {
 }
 
 //update cart while +/- of the quantity
-function updateQuantity(productId, newQty) {
-    if(localStorage.getItem("cart")){
+function updateQuantity(id, qtyChange) {
+    const index = cart.findIndex(item => item.id === id);
+
+    if(index > -1){
         cart = JSON.parse(localStorage.getItem("cart"));
-        const item = cart.find( p => p.id === productId);
+        const item = cart.find( p => p.id === id);
         
         if(item){
-            item.quantity = newQty;
-            localStorage.setItem("cart", JSON.stringify(cart));
-            renderCartSummary();
+            const newQty = parseInt(item.quantity) + parseInt(qtyChange);
+            if(newQty >= 1){
+                item.quantity = newQty
+                localStorage.setItem("cart", JSON.stringify(cart));
+                renderCartSummary();
+            }
+            // else if(newQty === 0) {
+            //     removeFromCart(item.id);
+            // }
+            
         }
     }
     
@@ -224,17 +233,22 @@ function renderCartSummary() {
         div.classList.add('cart-item');
         div.innerHTML = `
             <span class="item-name">${item.name}</span>
-            <select class="qty-selector" onchange="updateQuantity(${item.id}, this.value)">
-                ${
-                    quantityCounts.map(qty => 
-                        `<option value="${qty}" ${qty === parseInt(item.quantity) ? "selected": ""}>${qty}</option>`
-                    )
-                } 
-            </select>
-            
+            <div class="qty-controls">
+                <button class="qty-btn" onclick="updateQuantity(${item.id}, -1)">-</button>
+                    <span class="item-qty">${item.quantity}</span>
+                <button class="qty-btn" onclick="updateQuantity(${item.id}, +1)">+</button>
+            </div>
             <span class="item-price">$${item.price.toFixed(2)}</span>
             <button class="remove-btn" onclick="removeFromCart(${item.id})"> ❌ </button>
-        `;//<span class="item-qty">${item.quantity}</span>
+        `;
+        //<span class="item-qty">${item.quantity}</span>
+        //     <select class="qty-selector" onchange="updateQuantity(${item.id}, this.value)">
+        //         ${
+        //             quantityCounts.map(qty => 
+        //                 `<option value="${qty}" ${qty === parseInt(item.quantity) ? "selected": ""}>${qty}</option>`
+        //             )
+        //         } 
+        //     </select>
         cartList.appendChild(div);
     });
     
