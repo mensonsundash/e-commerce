@@ -1,9 +1,9 @@
 // Sample product data
 const products = [
-  { id: 1, name: "Wireless Mouse", category: "electronics", price: 29.99, inStock: true },
-  { id: 2, name: "T-Shirt", category: "clothing", price: 19.99, inStock: false },
-  { id: 3, name: "Bluetooth Headphones", category: "electronics", price: 49.99, inStock: true },
-  { id: 4, name: "Jeans", category: "clothing", price: 39.99, inStock: true }
+  { id: 1, name: "Wireless Mouse", category: "electronics", price: 29.99, inStock: 10 },
+  { id: 2, name: "T-Shirt", category: "clothing", price: 19.99, inStock: 0 },
+  { id: 3, name: "Bluetooth Headphones", category: "electronics", price: 49.99, inStock: 12 },
+  { id: 4, name: "Jeans", category: "clothing", price: 39.99, inStock: 4 }
 ];
 
 /**
@@ -95,7 +95,7 @@ function searchByKeyword(products, keywords) {
 
 //stock availability check
 function getAvailableProducts(products) {
-    return products.filter(product => product.inStock);
+    return products.filter(product => product.inStock > 0);
 }
 
 //toggle cartsidebar
@@ -144,7 +144,7 @@ function displayProducts(productArray) {
             <h3>${product.name}</h3>
             <p>Category: ${product.category}</p>
             <p>Price: ${product.price.toFixed(2)}</P>
-            <p>${product.inStock ? "✅ In Stock" : "❌ Out of Stock"}</p>
+            <p>${product.inStock > 0 ? "✅ In Stock" : "❌ Out of Stock"}</p>
             <button class="add-to-cart-btn" onclick="handleAddToCart(${product.id})">Add to cart</button>
         `;// <button class="add-to-cart-btn" data-id="${product.id}">Add to cart</button>
         container.appendChild(card);
@@ -163,6 +163,14 @@ function handleAddToCart(productId) {
 function addToCart(product) {
     let existingItem = -1; //set cart as empty
     
+    const productStock = product.inStock;//checking product stock
+
+    if(productStock <= 0){
+        alert(`You can't add ${product.name} into cart. It is out of stock.`);
+        return;
+    }
+
+
     if(localStorage.getItem("cart")){
         cart = JSON.parse(localStorage.getItem("cart"));
         existingItem = cart.findIndex( item => item.id === product.id);
@@ -178,6 +186,8 @@ function addToCart(product) {
     localStorage.setItem("cart", JSON.stringify(cart));
     alert(`${product.name} added to cart`);
     toggleCart();
+    
+
 }
 
 //update cart while +/- of the quantity
@@ -186,18 +196,17 @@ function updateQuantity(id, qtyChange) {
 
     if(index > -1){
         cart = JSON.parse(localStorage.getItem("cart"));
-        const item = cart.find( p => p.id === id);
+        const product = cart.find( p => p.id === id);
         
-        if(item){
-            const newQty = parseInt(item.quantity) + parseInt(qtyChange);
-            if(newQty >= 1){
-                item.quantity = newQty
+        if(product){
+            const newQty = parseInt(product.quantity) + parseInt(qtyChange);
+            if(newQty >= 1 && newQty <= product.inStock){
+                product.quantity = newQty
                 localStorage.setItem("cart", JSON.stringify(cart));
                 renderCartSummary();
+            }else if(newQty > product.inStock) {
+                alert(`Only ${product.inStock} available for ${product.name}`);
             }
-            // else if(newQty === 0) {
-            //     removeFromCart(item.id);
-            // }
             
         }
     }

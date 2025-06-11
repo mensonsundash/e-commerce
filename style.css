@@ -169,7 +169,7 @@ input[type="checkbox"] {
   position: fixed;
   top: 0;
   right: 0;
-  width: 300px;
+  width: 400px;
   height: 100%;
   background-color: #fff;
   box-shadow: -2px 0 8px rgba(0,0,0,0.2);
@@ -244,7 +244,7 @@ input[type="checkbox"] {
 .cart-item .item-qty,
 .cart-item .item-price {
   text-align: center;
-  width: 60px;
+  /* width: 60px; */
 }
 
 .cart-item .remove-btn {
