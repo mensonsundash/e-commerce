@@ -18,8 +18,9 @@ const inputTagsClass = [
     "inStockOnly"
 ];
 
-//Initialize empty cart array
-let cart = [];
+//Variable Declaration 
+let cart = []; //Initialize empty cart array
+let wishlist = []; //Initialize empty wishlist
 
 /**
  * loading windows on page load
@@ -33,8 +34,14 @@ window.onload = function () {
     if(localStorage.getItem("cart")){
         cart = JSON.parse(localStorage.getItem("cart"));//parsing JSON data
     }
-    renderCartSummary();//rendering cartSummary
 
+    //checking localstorage for wishlist
+    if(localStorage.getItem("wishlist")) {
+        wishlist = JSON.parse(localStorage.getItem("wishlist"));
+    }
+
+
+    renderCartSummary();//rendering cartSummary
     
 }
 
@@ -146,6 +153,7 @@ function displayProducts(productArray) {
             <p>Price: ${product.price.toFixed(2)}</P>
             <p>${product.inStock > 0 ? "✅ In Stock" : "❌ Out of Stock"}</p>
             <button class="add-to-cart-btn" onclick="handleAddToCart(${product.id})">Add to cart</button>
+            <button class="wishlist-btn" onclick="handleWishlist(${product.id})">❤️ Wishlist</button>
         `;// <button class="add-to-cart-btn" data-id="${product.id}">Add to cart</button>
         container.appendChild(card);
     });
@@ -282,3 +290,55 @@ function clearCart() {
     renderCartSummary();
 }
 
+
+//handling wishlist 
+function handleWishlist(id) {
+
+    const product = products.find( p => p.id === id);
+    toggleWishlist(product);
+
+    renderWishlist();
+    
+}
+
+// toggle and add product into wishlist
+function toggleWishlist(product) {
+    const index = wishlist.findIndex(item => item.id === product.id);
+
+    if(index > -1){
+        wishlist.splice(index, -1)//remove
+        alert(`${product.name} removed from wishlist.`);
+    }else{
+        wishlist.push(product); //add product into wishlist
+        alert(`${product.name} added to wishlist.`);
+    }
+
+    localStorage.setItem("wishlist", JSON.stringify(wishlist));
+}
+
+
+function renderWishlist(){
+    const wishlistContainer = document.getElementById('wishlistContainer');
+    wishlistContainer.innerHTML = '';
+
+    if(wishlist.length === 0){
+        container.innerHTML = "<p>Your wishlist is empty.</p>";
+        return;
+    }
+
+    wishlist.forEach(item => {
+        const card = document.createElement('div');
+
+        card.classList = "product-card";
+        card.innerHTML = `
+            <span class="item-name">${item.name}</span>
+            <span class="item-category">${item.category}</span>
+            <span class="item-price">$${item.price.toFixed(2)}</span>
+            <button class="remove-btn" onclick="handleWishlist(${item.id})"> ❌ </button>
+        `;
+
+        wishlistContainer.appendChild(card);
+    });
+
+    
+}

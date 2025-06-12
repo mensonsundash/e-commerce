@@ -61,6 +61,10 @@ input[type="checkbox"] {
     margin-right: 8px;
 }
 
+.search-input {
+  /* width: 100%; */
+}
+
 
 /* Product Listing and Cart Summary */
 
@@ -144,6 +148,21 @@ input[type="checkbox"] {
 }
 .add-to-cart-btn:hover {
   background-color: #0b5ed7;
+}
+
+/* Wishlist */
+.wishlist-btn {
+  background: #fce5ec;
+  color: #d63384;
+  border: 1px solid #d63384;
+  padding: 6px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 5px;
+  margin-left: 5px;
+}
+.wishlist-btn:hover {
+  background: #f8d7da;
 }
 
 
