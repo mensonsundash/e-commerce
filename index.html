@@ -32,7 +32,10 @@
 
     <div id="productList" class="product-grid"></div>
 
+    <button onclick="toggleWishlist()" id="wishlistBtn" ><h4>❤️ <span id="wishCount"></span></h4></button>
+
     <button onclick="toggleCart()" id="cartBtn"><h4>🛒 <span id="cartCount"></span></h4></button>
+
     <div id="cartSidebar" class="cart-sidebar hidden">
         <!--Cart Top Bar-->
         <div class="cart-header">
@@ -58,7 +61,18 @@
         </div>
     </div>
 
-    <div class="wishlist-container hidden" id="wishlistContainer"></div>
+    <div class="wishlist-sidebar hidden" id="wishlistSidebar">
+        <!--Cart Top Bar-->
+        <div class="wishlist-header">
+            <h2>❤️ Your wishlist </h2>
+            <button onclick="toggleWishlist()" class="close-btn">x</button>
+        </div>
+
+        <div id="wishlistItems" class="wishlist-items">
+            <div id="wishlistList"></div>
+        </div>
+
+    </div>
 
         
 
