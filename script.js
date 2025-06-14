@@ -30,19 +30,26 @@ window.onload = function () {
     // loading products according to filters
     getFilteredProducts();
 
+    // if(wishlist.length === 0){
+    //     wishlistList.innerHTML = "<p>Your wishlist is empty.</p>";
+    //     return;
+    // }
+
     //checking localstorage for cart
     if(localStorage.getItem("cart")){
         cart = JSON.parse(localStorage.getItem("cart"));//parsing JSON data
-        renderCartSummary();//rendering cartSummary
+        
     }
 
     //checking localstorage for wishlist
     if(localStorage.getItem("wishlist")) {
         wishlist = JSON.parse(localStorage.getItem("wishlist"));
-        renderWishlist();//rendering wishlist
+        
     }
 
 
+    renderCartSummary();//rendering cartSummary
+    renderWishlist();//rendering wishlist
     
     
 }
@@ -198,6 +205,8 @@ function addToCart(product) {
         cart.push({ ...product, quantity: 1 });
     }
 
+    removeFromWishlist(product.id)
+
     
     localStorage.setItem("cart", JSON.stringify(cart));
     alert(`${product.name} added to cart`);
@@ -326,6 +335,7 @@ function addUpdateWishlist(product) {
     }
 
     localStorage.setItem("wishlist", JSON.stringify(wishlist));
+    toggleWishlist();
 }
 
 
@@ -346,6 +356,7 @@ function renderWishlist(){
             <span class="item-name">${item.name}</span>
             <span class="item-category">${item.category}</span>
             <span class="item-price">$${item.price.toFixed(2)}</span>
+            <button class="add-to-cart-btn" onclick="handleAddToCart(${item.id})">Add to cart</button>
             <button class="remove-btn" onclick="removeFromWishlist(${item.id})"> ❌ </button>
         `;
 
@@ -356,16 +367,20 @@ function renderWishlist(){
 }
 
 function removeFromWishlist(id) {
-    const index = wishlist.findIndex( item => item.id === id);
-    const wishlistName = wishlist[index].name;
+    // const index = wishlist.findIndex( item => item.id === id);
+    // const wishlistName = wishlist[index].name;
 
-    if(index > -1){
-        wishlist.splice(index, 1); //remove one item from index
-        if(wishlist.length === 0) {
-            clearWishlist();
-        }
-        alert(`${wishlistName} removed from wishlist.`);
-    }
+    // if(index > -1){
+    //     wishlist.splice(index, 1); //remove one item from index
+    //     if(wishlist.length === 0) {
+    //         clearWishlist();
+    //     }
+    //     localStorage.setItem('wishlist', JSON.stringify(wishlist));
+    //     alert(`${wishlistName} removed from wishlist.`);
+    // }
+    wishlist = wishlist.filter(w => w.id !== id);
+    localStorage.setItem("wishlist", JSON.stringify(wishlist));
+    renderWishlist();
 }
 
 function clearWishlist() {
