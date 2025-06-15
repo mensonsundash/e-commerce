@@ -351,13 +351,17 @@ function renderWishlist(){
     wishlist.forEach(item => {
         const card = document.createElement('div');
 
-        card.classList = "product-card";
+        card.classList = "wishlist-product-card";
         card.innerHTML = `
-            <span class="item-name">${item.name}</span>
-            <span class="item-category">${item.category}</span>
-            <span class="item-price">$${item.price.toFixed(2)}</span>
-            <button class="add-to-cart-btn" onclick="handleAddToCart(${item.id})">Add to cart</button>
-            <button class="remove-btn" onclick="removeFromWishlist(${item.id})"> ❌ </button>
+            <div class="wishlist-product-info">
+                <span class="item-name">${item.name}</span>
+                <span class="item-category">${item.category}</span>
+                <span class="item-price">$${item.price.toFixed(2)}</span>
+            </div>
+            <div class="wishlist-actions">
+                <button class="add-to-cart-btn" onclick="handleAddToCart(${item.id})">Add to cart</button>
+                <button class="remove-btn" onclick="removeFromWishlist(${item.id})"> ❌ </button>
+            </div>
         `;
 
         wishlistList.appendChild(card);
