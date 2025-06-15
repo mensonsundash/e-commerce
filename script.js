@@ -341,6 +341,9 @@ function addUpdateWishlist(product) {
 
 function renderWishlist(){
     const wishlistList = document.getElementById('wishlistList');
+    const wishCounteer = document.getElementById("wishCount");
+    wishCounteer.textContent = wishlist.length;
+
     wishlistList.innerHTML = '';
 
     if(wishlist.length === 0){
