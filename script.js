@@ -33,11 +33,6 @@ window.onload = function () {
     // loading products according to filters
     getFilteredProducts();
 
-    // if(wishlist.length === 0){
-    //     wishlistList.innerHTML = "<p>Your wishlist is empty.</p>";
-    //     return;
-    // }
-
     //checking localstorage for cart
     if(localStorage.getItem("cart")){
         cart = JSON.parse(localStorage.getItem("cart"));//parsing JSON data
