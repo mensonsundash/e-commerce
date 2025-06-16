@@ -1,10 +1,10 @@
-:root {
+/* :root {
     --primary-color: #0d6efd;
     --background: #f4f6f8;
     --text-color: #333;
     --card-bg: #ffffff;
     --shadow: rgba(0, 0, 0, 0.1) 0px 4px 10px;
-}
+} */
 
 body {
     font-family: 'Segoe UI', Roboto, sans-serif;
@@ -23,7 +23,7 @@ h1 {
     font-size: 32px;
 }
 
-.filters {
+/* .filters {
     display: grid;
     gap: 16px;
     background-color: var(--card-bg);
@@ -59,11 +59,78 @@ select:focus {
 input[type="checkbox"] {
     transform: scale(1.1);
     margin-right: 8px;
+} */
+
+:root {
+  --bg: #ffffff;
+  --primary: #0d6efd;
+  --gray: #f1f3f5;
+  --text: #333;
+  --border: #ddd;
+  --radius: 8px;
+  --shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+
+  --primary-color: #0d6efd;
+  --background: #f4f6f8;
+  --text-color: #333;
+  --card-bg: #ffffff;
+  /* --shadow: rgba(0, 0, 0, 0.1) 0px 4px 10px; */
 }
 
-.search-input {
-  /* width: 100%; */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  background-color: var(--bg);
+  padding: 20px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 30px;
+  align-items: flex-end;
 }
+
+/* Individual filter item */
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1 1 160px;
+}
+
+.filters input[type="text"],
+.filters input[type="number"],
+.filters select {
+  padding: 10px 12px;
+  font-size: 14px;
+  background-color: var(--gray);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  transition: all 0.3s ease;
+}
+
+.filters input:focus,
+.filters select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(13, 110, 253, 0.15);
+}
+
+/* Checkbox group horizontal layout */
+.checkbox-group {
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.checkbox-group label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+
 
 
 /* Product Listing and Cart Summary */
@@ -468,8 +535,20 @@ input[type="checkbox"] {
   background-color: #ddd;
 }
 
-@media (min-width: 768px) {
+/* @media (min-width: 768px) {
     .filters {
         grid-template-columns: 1fr 1fr;
     }
+} */
+
+/* Responsive tweaks */
+@media (max-width: 600px) {
+  .filters {
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .filter-group {
+    flex: 1 1 100%;
+  }
 }

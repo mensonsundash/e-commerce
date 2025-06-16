@@ -374,18 +374,11 @@ function renderWishlist(){
 }
 
 function removeFromWishlist(id) {
-    // const index = wishlist.findIndex( item => item.id === id);
-    // const wishlistName = wishlist[index].name;
-
-    // if(index > -1){
-    //     wishlist.splice(index, 1); //remove one item from index
-    //     if(wishlist.length === 0) {
-    //         clearWishlist();
-    //     }
-    //     localStorage.setItem('wishlist', JSON.stringify(wishlist));
-    //     alert(`${wishlistName} removed from wishlist.`);
-    // }
+    
     wishlist = wishlist.filter(w => w.id !== id);
+    if(wishlist.length === 0) {
+            clearWishlist();
+        }
     localStorage.setItem("wishlist", JSON.stringify(wishlist));
     renderWishlist();
 }
