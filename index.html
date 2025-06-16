@@ -9,6 +9,7 @@
 <body>
     <h1>🛍️ Product Catalog</h1>
 
+    <!--FILTERS-->
     <div class="filters">
         <div class="filter-group">
             <label for="categoryFilter">Keywords:</label>
@@ -27,11 +28,11 @@
         
         <div class="filter-group">
             <label>Min Price:</label>
-            <input type="number" id="minPrice" placeholder="Min Price" />
+            <input type="number" id="minPrice" placeholder="Min Price" min="0"/>
         </div>
         <div class="filter-group">
             <label>Max Price:</label>
-            <input type="number" id="maxPrice" placeholder="Max Price" />
+            <input type="number" id="maxPrice" placeholder="Max Price" min="0"/>
         </div>
         
         <div class="filter-group checkbox-group">
@@ -43,12 +44,26 @@
         
     </div>
 
+    <!-- PRODUCT LISTING -->
     <div id="productList" class="product-grid"></div>
 
+    <!-- USER AUTHENTICATION-->
+     <div id="authContainer">
+        <div id="registerBox">
+            <h3>Registration</h3>
+            <input type="text" id="name" placeholder="Name"/>
+            <input type="email" id="email" placeholder="Email"/>
+            <input type="password" id="password" placeholder="Password"/>
+            <button onclick="registerUser()">Register</button>
+        </div>
+     </div>
+
+    <!-- TOGGLE BUTTONS-->
     <button onclick="toggleWishlist()" id="wishlistBtn" ><h4>❤️ <span id="wishCount"></span></h4></button>
-
     <button onclick="toggleCart()" id="cartBtn"><h4>🛒 <span id="cartCount"></span></h4></button>
-
+    <button onclick="toggleCart()" id="accountBtn"><h4>👤 </h4></button>
+    
+    <!-- CART SIDEBAR-->
     <div id="cartSidebar" class="cart-sidebar hidden">
         <!--Cart Top Bar-->
         <div class="cart-header">
@@ -74,6 +89,7 @@
         </div>
     </div>
 
+    <!--WISHLIST SIDEBAR-->
     <div class="wishlist-sidebar hidden" id="wishlistSidebar">
         <!--Cart Top Bar-->
         <div class="wishlist-header">

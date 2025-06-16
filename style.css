@@ -1,10 +1,17 @@
-/* :root {
-    --primary-color: #0d6efd;
-    --background: #f4f6f8;
-    --text-color: #333;
-    --card-bg: #ffffff;
-    --shadow: rgba(0, 0, 0, 0.1) 0px 4px 10px;
-} */
+
+
+:root {
+  --bg: #ffffff;
+  --gray: #f1f3f5;
+  --text: #333;
+  --primary-color: #0d6efd;
+  --background: #f4f6f8;
+  --text-color: #333;
+  --card-bg: #ffffff;
+  --border: #ddd;
+  --radius: 8px;
+  --shadow: rgba(0, 0, 0, 0.06) 0 2px 12px ;
+}
 
 body {
     font-family: 'Segoe UI', Roboto, sans-serif;
@@ -61,21 +68,7 @@ input[type="checkbox"] {
     margin-right: 8px;
 } */
 
-:root {
-  --bg: #ffffff;
-  --primary: #0d6efd;
-  --gray: #f1f3f5;
-  --text: #333;
-  --border: #ddd;
-  --radius: 8px;
-  --shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
 
-  --primary-color: #0d6efd;
-  --background: #f4f6f8;
-  --text-color: #333;
-  --card-bg: #ffffff;
-  /* --shadow: rgba(0, 0, 0, 0.1) 0px 4px 10px; */
-}
 
 .filters {
   display: flex;
@@ -86,7 +79,7 @@ input[type="checkbox"] {
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   margin-bottom: 30px;
-  align-items: flex-end;
+  align-items: flex-start;
 }
 
 /* Individual filter item */
@@ -133,7 +126,7 @@ input[type="checkbox"] {
 
 
 
-/* Product Listing and Cart Summary */
+/* PRODUCT LISTING*/
 
 /* Grid Layout for Product Cards */
 .product-grid {
@@ -217,7 +210,7 @@ input[type="checkbox"] {
   background-color: #0b5ed7;
 }
 
-/* Wishlist */
+/* WISHLIST STYLING*/
 
 
 /* Cart button */
@@ -382,7 +375,7 @@ input[type="checkbox"] {
   transform: scale(1.2);
 }
 
-
+/* FLOATING CART AND WISHLIST BUTTONS */
 /* Cart button */
 #cartBtn {
   position: fixed;
@@ -400,6 +393,7 @@ input[type="checkbox"] {
   margin: 0px;
 }
 
+/* CART SIDEBAR & LISTINGS */
 /* Sidebar base */
 .cart-sidebar {
   position: fixed;
@@ -535,14 +529,8 @@ input[type="checkbox"] {
   background-color: #ddd;
 }
 
-/* @media (min-width: 768px) {
-    .filters {
-        grid-template-columns: 1fr 1fr;
-    }
-} */
-
 /* Responsive tweaks */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .filters {
     flex-direction: column;
     gap: 14px;

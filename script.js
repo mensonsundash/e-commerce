@@ -1,9 +1,11 @@
 // Sample product data
 const products = [
-  { id: 1, name: "Wireless Mouse", category: "electronics", price: 29.99, inStock: 10 },
-  { id: 2, name: "T-Shirt", category: "clothing", price: 19.99, inStock: 0 },
-  { id: 3, name: "Bluetooth Headphones", category: "electronics", price: 49.99, inStock: 12 },
-  { id: 4, name: "Jeans", category: "clothing", price: 39.99, inStock: 4 }
+    { id: 1, name: "Wireless Mouse", category: "electronics", price: 29.99, inStock: 10 },
+    { id: 2, name: "T-Shirt", category: "clothing", price: 19.99, inStock: 0 },
+    { id: 3, name: "Bluetooth Headphones", category: "electronics", price: 49.99, inStock: 12 },
+    { id: 4, name: "Jeans", category: "clothing", price: 39.99, inStock: 4 },
+    { id: 5, name: "Ear Buds", category: "electronics", price: 236.99, inStock: 23 },
+    { id: 6, name: "Mashimo Boots", category: "clothing", price: 124, inStock: 15 }
 ];
 
 /**
@@ -21,6 +23,7 @@ const inputTagsClass = [
 //Variable Declaration 
 let cart = []; //Initialize empty cart array
 let wishlist = []; //Initialize empty wishlist
+let users = [];//Initialize empty users
 
 /**
  * loading windows on page load
@@ -45,6 +48,11 @@ window.onload = function () {
     if(localStorage.getItem("wishlist")) {
         wishlist = JSON.parse(localStorage.getItem("wishlist"));
         
+    }
+
+    //checking localstorage for users
+    if(localStorage.getItem("loggedInUser")){
+        users = JSON.parse(localStorage.getItem("loggedInUser"));
     }
 
 
