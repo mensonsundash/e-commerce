@@ -440,7 +440,33 @@ function registerUser(e){
     alert("Registration successful! Please log in.");
 }
 
+function loginUser(e){
+    e.preventDefault();
+    
+    const email = document.getElementById('loginEmail').value.trim();
+    const password = document.getElementById('loginPassword').value.trim();
 
+    const user = users.find( u => u.email === email && u.password === password);
+
+    if(!user){
+        return alert("Invalid Credentials");
+    }
+
+    loggedInUser = user;
+    
+    localStorage.setItem("loggedInUser", JSON.stringify(loggedInUser));
+
+    alert(`Welcome ${loggedInUser.name}`);
+    closeModal('loginModal');
+    resetForm('loginForm');
+    updateAuthUI();
+}
+
+function logoutUser() {
+    localStorage.removeItem("loggedInUser");
+    loggedInUser = null;
+    updateAuthUI();
+}
 
 
 
