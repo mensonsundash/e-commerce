@@ -31,8 +31,8 @@ let loggedInUser = null;//Initialize empty logged in user
  */
 
 window.onload = function () {
-    // loading products according to filters
-    getFilteredProducts();
+    
+    
 
     //checking localstorage for cart
     if(localStorage.getItem("cart")){
@@ -55,8 +55,10 @@ window.onload = function () {
     }
 
 
+    getFilteredProducts();// loading products according to filters
     renderCartSummary();//rendering cartSummary
     renderWishlist();//rendering wishlist
+    updateAuthUI();//loading authenticate users, page
     
 
     /*  Trigger Events handlers */
@@ -189,6 +191,9 @@ function displayProducts(productArray) {
 //handling Add To cart
 function handleAddToCart(productId) {
     const product = products.find( p => p.id === productId);
+    if(!loggedInUser){
+        return alert("Please login to add items.");
+    }
     addToCart(product);
     renderCartSummary();
 }
@@ -445,6 +450,8 @@ function loginUser(e){
     
     const email = document.getElementById('loginEmail').value.trim();
     const password = document.getElementById('loginPassword').value.trim();
+    const accountSection = document.getElementById('accountSection');
+    
 
     const user = users.find( u => u.email === email && u.password === password);
 
@@ -455,7 +462,7 @@ function loginUser(e){
     loggedInUser = user;
     
     localStorage.setItem("loggedInUser", JSON.stringify(loggedInUser));
-
+    accountSection.classList.add("hidden");
     alert(`Welcome ${loggedInUser.name}`);
     closeModal('loginModal');
     resetForm('loginForm');
@@ -463,9 +470,32 @@ function loginUser(e){
 }
 
 function logoutUser() {
+    const userPanel = document.getElementById('userPanel');
+    const accountSection = document.getElementById('accountSection');
+    userPanel.classList.add("hidden");
+    accountSection.classList.remove("hidden");
     localStorage.removeItem("loggedInUser");
     loggedInUser = null;
     updateAuthUI();
+}
+
+function updateAuthUI(){
+    const accountSection = document.getElementById('accountSection');
+    const userPanel = document.getElementById("userPanel");
+    const welcomeText = document.getElementById("welcomeText");
+
+    if(loggedInUser){
+        userPanel.classList.remove("hidden");
+        accountSection.classList.add("hidden");
+        welcomeText.textContent = `Welcome, ${loggedInUser.name}`;
+        // closeModal('registerModal');
+        // closeModal('loginModal');
+    }else{
+        userPanel.classList.add("hidden");
+        accountSection.classList.remove("hidden");
+        // openModal('registerModal');
+        // openModal('loginModal');
+    }
 }
 
 

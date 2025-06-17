@@ -49,8 +49,15 @@
 
     
     <!--Account Buttons-->
-    <button onclick="openModal('loginModal')" id="loginBtn">Login</button>
-    <button onclick="openModal('registerModal')" id="registerBtn">Register</button>
+    <div id="accountSection" class="account-section">
+        <button onclick="openModal('loginModal')" id="loginBtn">Login</button>
+        <button onclick="openModal('registerModal')" id="registerBtn">Register</button>
+    </div>
+    <!-- USER PANEL-->
+     <div id="userPanel" class="user-panel hidden">
+        <p id="welcomeText"></p>
+        <button onclick="logoutUser()" id="logoutBtn">Logout</button>
+     </div>
     
     <!-- TOGGLE BUTTONS-->
     <button onclick="toggleWishlist()" id="wishlistBtn" ><h4>❤️ <span id="wishCount"></span></h4></button>
@@ -58,7 +65,7 @@
     <!-- <button onclick="toggleCart()" id="accountBtn"><h4>👤 </h4></button> -->
     
     <!-- CART SIDEBAR-->
-    <div id="cartSidebar" class="cart-sidebar hidden">
+    <div id="cartSidebar" class="cart-sidebar">
         <!--Cart Top Bar-->
         <div class="cart-header">
             <h2>🛒 Your Cart </h2>
@@ -84,7 +91,7 @@
     </div>
 
     <!--WISHLIST SIDEBAR-->
-    <div class="wishlist-sidebar hidden" id="wishlistSidebar">
+    <div class="wishlist-sidebar" id="wishlistSidebar">
         <!--Cart Top Bar-->
         <div class="wishlist-header">
             <h2>❤️ Your wishlist </h2>
@@ -129,6 +136,7 @@
         </div>
     </div>
         
+    
 
     <script src="./script.js"></script>
 </body>
