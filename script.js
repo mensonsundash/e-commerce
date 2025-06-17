@@ -407,6 +407,40 @@ function resetForm(formId){
 }
 
 
+// registration function
+function registerUser(e){
+    e.preventDefault();
+    
+    // const name = document.getElementById("name").value.trim();
+    // const email = document.getElementById("email").value.trim();
+    // const password = document.getElementById("password").value.trim();
+
+    const name = document.getElementById("registerName").value.trim();
+    const email = document.getElementById("registerEmail").value.trim();
+    const password = document.getElementById("registerPassword").value.trim();
+
+    if (!name || !email || !password) {
+        alert("All fields are required");
+        return;
+    }
+
+    if(users.find(u => u.email === email)){
+        return alert("Email already registered");
+    }
+
+    const newUser = {
+        id: Date.now(),
+        name,
+        email,
+        password
+    };
+
+    users.push(newUser);
+    localStorage.setItem("users", JSON.stringify(users));
+    alert("Registration successful! Please log in.");
+}
+
+
 
 
 
