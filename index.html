@@ -47,17 +47,11 @@
     <!-- PRODUCT LISTING -->
     <div id="productList" class="product-grid"></div>
 
-    <!-- USER AUTHENTICATION-->
-     <div id="authContainer">
-        <div id="registerBox">
-            <h3>Registration</h3>
-            <input type="text" id="name" placeholder="Name"/>
-            <input type="email" id="email" placeholder="Email"/>
-            <input type="password" id="password" placeholder="Password"/>
-            <button onclick="registerUser()">Register</button>
-        </div>
-     </div>
-
+    
+    <!--Account Buttons-->
+    <button onclick="openModal('loginModal')" id="loginBtn">Login</button>
+    <button onclick="openModal('registerModal')" id="registerBtn">Register</button>
+    
     <!-- TOGGLE BUTTONS-->
     <button onclick="toggleWishlist()" id="wishlistBtn" ><h4>❤️ <span id="wishCount"></span></h4></button>
     <button onclick="toggleCart()" id="cartBtn"><h4>🛒 <span id="cartCount"></span></h4></button>
@@ -108,6 +102,32 @@
 
     </div>
 
+    <!--LOGIN MODAL-->
+    <div id="loginModal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('loginModal')">&times;</span>
+            <h2>Login</h2>
+            <form id="loginForm">
+                <input type="email" id="loginEmail" placeholder="Email" required />
+                <input type="password" id="loginPassword" placeholder="Password" required />
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!--REGISTER MODAL-->
+    <div id="registerModal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('registerModal')">&times;</span>
+            <h3>Registration</h3>
+            <form id="registerForm">
+                <input type="text" id="registerName" placeholder="Full Name" required />
+                <input type="email" id="registerEmail" placeholder="Email" required />
+                <input type="password" id="registerPassword" placeholder="Password" required />
+                <button type="submit">Register</button>
+            </form>
+        </div>
+    </div>
         
 
     <script src="./script.js"></script>

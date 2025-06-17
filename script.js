@@ -24,6 +24,7 @@ const inputTagsClass = [
 let cart = []; //Initialize empty cart array
 let wishlist = []; //Initialize empty wishlist
 let users = [];//Initialize empty users
+let loggedInUser = null;//Initialize empty logged in user
 
 /**
  * loading windows on page load
@@ -36,42 +37,49 @@ window.onload = function () {
     //checking localstorage for cart
     if(localStorage.getItem("cart")){
         cart = JSON.parse(localStorage.getItem("cart"));//parsing JSON data
-        
     }
 
     //checking localstorage for wishlist
     if(localStorage.getItem("wishlist")) {
         wishlist = JSON.parse(localStorage.getItem("wishlist"));
-        
     }
 
     //checking localstorage for users
+    if(localStorage.getItem("users")){
+        users = JSON.parse(localStorage.getItem("users"));
+    }
+
+    //checking localstorage for loggedInUsers
     if(localStorage.getItem("loggedInUser")){
-        users = JSON.parse(localStorage.getItem("loggedInUser"));
+        loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
     }
 
 
     renderCartSummary();//rendering cartSummary
     renderWishlist();//rendering wishlist
     
+
+    /*  Trigger Events handlers */
+    
+    //Loop through all tags id
+    inputTagsClass.forEach( id => {
+        document.getElementById(id).addEventListener("input", getFilteredProducts);
+        document.getElementById(id).addEventListener("change", getFilteredProducts);
+    })
+
+    //Form Handlers
+    document.getElementById("loginForm").addEventListener("submit", loginUser);
+    document.getElementById("registerForm").addEventListener("submit", registerUser);
     
 }
 
 
-/**
- * Trigger Events
- */
 
-//Loop through all tags id
-inputTagsClass.forEach( id => {
-    document.getElementById(id).addEventListener("input", getFilteredProducts);
-    document.getElementById(id).addEventListener("change", getFilteredProducts);
-})
 
 
 
 /**
- * Utility Functions
+ * UTILITY FUNCTIONS
  */
 
 //filter bycategory
@@ -131,7 +139,7 @@ function toggleWishlist(){
 
 
 /**
- * Resulting Functions
+ * RESULTING FUNCTIONS
  */
 //filtered product combined
 function getFilteredProducts() {
@@ -278,14 +286,6 @@ function renderCartSummary() {
             <span class="item-price">$${item.price.toFixed(2)}</span>
             <button class="remove-btn" onclick="removeFromCart(${item.id})"> ❌ </button>
         `;
-        //<span class="item-qty">${item.quantity}</span>
-        //     <select class="qty-selector" onchange="updateQuantity(${item.id}, this.value)">
-        //         ${
-        //             quantityCounts.map(qty => 
-        //                 `<option value="${qty}" ${qty === parseInt(item.quantity) ? "selected": ""}>${qty}</option>`
-        //             )
-        //         } 
-        //     </select>
         cartList.appendChild(div);
     });
     
@@ -391,3 +391,22 @@ function clearWishlist() {
     localStorage.removeItem("wishlist");
     renderWishlist();
 }
+
+// ACCOUNT MODAL
+
+function openModal(modalId) {
+    document.getElementById(modalId).classList.remove("hidden");
+}
+
+function closeModal(modalId) {
+    document.getElementById(modalId).classList.add("hidden");
+}
+
+function resetForm(formId){
+    document.getElementById(formId).reset();
+}
+
+
+
+
+
