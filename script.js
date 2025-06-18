@@ -50,8 +50,11 @@ window.onload = function () {
     }
 
     //checking localstorage for loggedInUsers
-    if(localStorage.getItem("loggedInUser")){
-        loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+    // if(localStorage.getItem("loggedInUser")){
+    //     loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+    // }
+    if(sessionStorage.getItem("loggedInUser")){
+        loggedInUser = JSON.parse(sessionStorage.getItem("loggedInUser"));
     }
 
 
@@ -461,7 +464,8 @@ function loginUser(e){
 
     loggedInUser = user;
     
-    localStorage.setItem("loggedInUser", JSON.stringify(loggedInUser));
+    // localStorage.setItem("loggedInUser", JSON.stringify(loggedInUser));
+    sessionStorage.setItem("loggedInUser", JSON.stringify(loggedInUser))
     accountSection.classList.add("hidden");
     alert(`Welcome ${loggedInUser.name}`);
     closeModal('loginModal');
@@ -474,7 +478,9 @@ function logoutUser() {
     const accountSection = document.getElementById('accountSection');
     userPanel.classList.add("hidden");
     accountSection.classList.remove("hidden");
-    localStorage.removeItem("loggedInUser");
+
+    // localStorage.removeItem("loggedInUser");
+    sessionStorage.removeItem("loggedInUser");
     loggedInUser = null;
     updateAuthUI();
 }
