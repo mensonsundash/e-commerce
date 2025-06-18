@@ -426,7 +426,7 @@ function registerUser(e){
     const name = document.getElementById("registerName").value.trim();
     const email = document.getElementById("registerEmail").value.trim();
     const password = document.getElementById("registerPassword").value.trim();
-
+    
     if (!name || !email || !password) {
         alert("All fields are required");
         return;
@@ -440,7 +440,8 @@ function registerUser(e){
         id: Date.now(),
         name,
         email,
-        password
+        password,
+        role: email === "admin@example.com" ? "admin" : "user"
     };
 
     users.push(newUser);
@@ -465,12 +466,19 @@ function loginUser(e){
     loggedInUser = user;
     
     // localStorage.setItem("loggedInUser", JSON.stringify(loggedInUser));
-    sessionStorage.setItem("loggedInUser", JSON.stringify(loggedInUser))
+    sessionStorage.setItem("loggedInUser", JSON.stringify(loggedInUser));
     accountSection.classList.add("hidden");
     alert(`Welcome ${loggedInUser.name}`);
-    closeModal('loginModal');
-    resetForm('loginForm');
-    updateAuthUI();
+
+    if(user.role === "admin"){
+        window.location.href = "admin.html" //redirect to admin panel
+    }else if(user.role === "user") {
+        closeModal('loginModal');
+        resetForm('loginForm');
+        updateAuthUI();
+    }
+
+    
 }
 
 function logoutUser() {
