@@ -7,10 +7,33 @@
     <link rel="stylesheet" href="./admin-style.css" />
 </head>
 <body>
-    <h1>👨‍💼 Admin Dashboard</h1>
+    <!--Left Sidebar-->
+    <div class="sidebar">
+        <h2>👨‍💼 Admin Dashboard</h2>
+        <ul>
+            <li>Dashboard</li>
+            <li>Product List</li>
+            <li>Product Add</li>
+        </ul>
+    </div>
 
-    <p id="adminWelcome"></p>
-    <button onclick="logoutAdmin()">Logout</button>
+    <!--Main Content-->
+    <div class="main">
+        <div class="header">
+            <button class="profile-btn" onclick="toggleProfile()">👤</button>
+            <div class="profile-popup" id="profilePopup">
+                <a href="#">Profile</a>
+                <a href="#" onclick="logoutAdmin()">Logout</a>
+            </div>
+        </div>
+        <div class="content">
+            <p id="adminWelcome"></p>
+        </div>
+    </div>
+
+
+    
+    <!-- <button onclick="logoutAdmin()">Logout</button> -->
 
     <script src="./admin-script.js"></script>
 </body>
