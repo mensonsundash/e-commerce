@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admmin Dashboard</title>
+    <title>Admin Dashboard</title>
     <link rel="stylesheet" href="./admin-style.css" />
 </head>
 <body>
     <!--Left Sidebar-->
     <div class="sidebar">
-        <h2>👨‍💼 Admin Dashboard</h2>
+        <h2>Admin Dashboard</h2>
         <ul>
-            <li>Dashboard</li>
-            <li>Product List</li>
-            <li>Product Add</li>
+            <li class="active">🏠 Dashboard</li>
+            <li onclick="listProduct()">📦 Product List</li>
+            <li onclick="addProduct()">➕ Product Add</li>
         </ul>
     </div>
 
@@ -22,8 +22,8 @@
         <div class="header">
             <button class="profile-btn" onclick="toggleProfile()">👤</button>
             <div class="profile-popup" id="profilePopup">
-                <a href="#">Profile</a>
-                <a href="#" onclick="logoutAdmin()">Logout</a>
+                <a href="#">👤 Profile</a>
+                <a href="#" onclick="logoutAdmin()">🔓 Logout</a>
             </div>
         </div>
         <div class="content">
