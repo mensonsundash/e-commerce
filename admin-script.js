@@ -48,23 +48,23 @@ function logoutAdmin() {
 }
 
 
-// /**
-//  * PRODUCT functions
-//  */
-// function listProduct() {
-//     if(!products){
-//         products = sampleProducts;
-//     }
-// }
-// function addProduct(){
+/**
+ * PRODUCT functions
+ */
+function listProduct() {
+    if(!products){
+        products = sampleProducts;
+    }
+}
+function addProduct(){
 
-// }
+}
 
-// function updateProduct(){
+function updateProduct(){
 
-// }
+}
 
-// function deleteProduct(id) {
+function deleteProduct(id) {
 
-// }
+}
 

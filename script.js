@@ -1,12 +1,5 @@
-// Sample product data
-const products = [
-    { id: 1, name: "Wireless Mouse", category: "electronics", price: 29.99, inStock: 10 },
-    { id: 2, name: "T-Shirt", category: "clothing", price: 19.99, inStock: 0 },
-    { id: 3, name: "Bluetooth Headphones", category: "electronics", price: 49.99, inStock: 12 },
-    { id: 4, name: "Jeans", category: "clothing", price: 39.99, inStock: 4 },
-    { id: 5, name: "Ear Buds", category: "electronics", price: 236.99, inStock: 23 },
-    { id: 6, name: "Mashimo Boots", category: "clothing", price: 124, inStock: 15 }
-];
+import { productsArr } from "./sample-product.js";
+const products = productsArr;
 
 /**
  * Variable Initialization/assignment
@@ -27,13 +20,27 @@ let users = [];//Initialize empty users
 let loggedInUser = null;//Initialize empty logged in user
 
 /**
+ * added to global window with global scope to functions 
+ * to call them from HTML as script type ="module" everything is scoped inside the module,
+ * and nothing is attached to window unless explicitly do it
+ */
+window.handleAddToCart = handleAddToCart;
+window.handleWishlist = handleWishlist;
+window.updateQuantity = updateQuantity;
+window.removeFromCart = removeFromCart;
+window.removeFromWishlist = removeFromWishlist;
+window.openModal = openModal;
+window.toggleCart = toggleCart;
+window.toggleWishlist = toggleWishlist
+window.closeModal = closeModal;
+window.logoutUser = logoutUser;
+window.clearWishlist = clearWishlist;
+window.clearCart = clearCart;
+
+/**
  * loading windows on page load
  */
-
 window.onload = function () {
-    
-    
-
     //checking localstorage for cart
     if(localStorage.getItem("cart")){
         cart = JSON.parse(localStorage.getItem("cart"));//parsing JSON data
@@ -193,16 +200,18 @@ function displayProducts(productArray) {
 
 //handling Add To cart
 function handleAddToCart(productId) {
+    console.log("Product added with id:", productId);
     const product = products.find( p => p.id === productId);
-    if(!loggedInUser){
-        return alert("Please login to add items.");
-    }
+    // if(!loggedInUser){
+    //     return alert("Please login to add items.");
+    // }
     addToCart(product);
     renderCartSummary();
 }
 
 //add product into cart
 function addToCart(product) {
+    console.log(product)
     let existingItem = -1; //set cart as empty
     
     const productStock = product.inStock;//checking product stock
