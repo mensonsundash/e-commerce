@@ -72,7 +72,30 @@ function dashboard() {
 function listProduct() {
     showSection("productListSection");
 
-    
+    const tableBody = document.getElementById("productTable");
+    tableBody.innerHTML = "";
+
+    if(products){
+        products.forEach(product => {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+                <td>${product.name}</td>
+                <td>${product.category}</td>
+                <td>${product.price.toFixed(2)}</td>
+                <td>${parseInt(product.inStock)}</td>
+                <td>
+                    <button class="action-btn edit-btn" onclick="editProduct(${product.id})">Edit</button>
+                    <button class="action-btn delete-btn" onclick="deleteProduct(${product.id})">Delete</button>
+                </td>
+            `;
+            
+                
+                tableBody.appendChild(tr);
+            }
+            
+        );
+        
+    }
 }
 function addProduct(){
 
