@@ -81,7 +81,7 @@ function listProduct() {
             tr.innerHTML = `
                 <td>${product.name}</td>
                 <td>${product.category}</td>
-                <td>${product.price.toFixed(2)}</td>
+                <td>$${product.price.toFixed(2)}</td>
                 <td>${parseInt(product.inStock)}</td>
                 <td>
                     <button class="action-btn edit-btn" onclick="editProduct(${product.id})">Edit</button>
