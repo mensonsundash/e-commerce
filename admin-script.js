@@ -1,22 +1,33 @@
-
-// Sample product data
-const sampleProducts = [
-    { id: 1, name: "Wireless Mouse", category: "electronics", price: 29.99, inStock: 10 },
-    { id: 2, name: "T-Shirt", category: "clothing", price: 19.99, inStock: 0 },
-    { id: 3, name: "Bluetooth Headphones", category: "electronics", price: 49.99, inStock: 12 },
-    { id: 4, name: "Jeans", category: "clothing", price: 39.99, inStock: 4 },
-    { id: 5, name: "Ear Buds", category: "electronics", price: 236.99, inStock: 23 },
-    { id: 6, name: "Mashimo Boots", category: "clothing", price: 124, inStock: 15 }
-];
+import { productsArr } from "./sample-product.js";
 //variable DECLARATION
 let products = [];
 let loggedInUser = null;
 
 /**
+ * added to global window with global scope to functions 
+ * to call them from HTML as script type ="module" everything is scoped inside the module,
+ * and nothing is attached to window unless explicitly do it
+ */
+window.toggleProfile = toggleProfile;
+window.logoutAdmin = logoutAdmin;
+window.listProduct = listProduct;
+window.addProduct = addProduct;
+window.dashboard = dashboard;
+
+/**
  * Loading windows on PAGELOAD
  */
-
 window.onload = function() {
+
+    showSection("dashboardSection");//loading defautl dashboard by making all other tabs hidden
+
+    if(!localStorage.getItem("products")){
+        localStorage.setItem("products", JSON.stringify(productsArr));
+    }
+
+    if(localStorage.getItem("products")){
+        products = JSON.parse(localStorage.getItem("products"));
+    }
 
     if(sessionStorage.getItem("loggedInUser")){
         loggedInUser = JSON.parse(sessionStorage.getItem("loggedInUser"))
@@ -27,7 +38,7 @@ window.onload = function() {
         window.location.href = "index.html";
         
     } else {
-        document.getElementById("adminWelcome").textContent = `Welcome, ${loggedInUser.name}`;
+        document.getElementById("dashboardSection").textContent = `Welcome, ${loggedInUser.name}`;
 
     }
 }
@@ -51,10 +62,17 @@ function logoutAdmin() {
 /**
  * PRODUCT functions
  */
+function dashboard() {
+    showSection("dashboardSection");
+
+    let dashboard = document.getElementById("dashboardSection");
+    
+    dashboard.textContent = `Welcome, ${loggedInUser.name}`;
+}
 function listProduct() {
-    if(!products){
-        products = sampleProducts;
-    }
+    showSection("productListSection");
+
+    
 }
 function addProduct(){
 
@@ -66,5 +84,13 @@ function updateProduct(){
 
 function deleteProduct(id) {
 
+}
+
+function showSection (sectionId) {
+    const allSections = document.querySelectorAll('.content-section');
+
+    allSections.forEach(section => section.classList.add("hidden"));
+    const targetSection = document.getElementById(sectionId);
+    if(targetSection) targetSection.classList.remove("hidden");
 }
 

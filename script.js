@@ -1,5 +1,5 @@
 import { productsArr } from "./sample-product.js";
-const products = productsArr;
+
 
 /**
  * Variable Initialization/assignment
@@ -14,6 +14,7 @@ const inputTagsClass = [
 ];
 
 //Variable Declaration 
+let products = [];//Initialize empty products array
 let cart = []; //Initialize empty cart array
 let wishlist = []; //Initialize empty wishlist
 let users = [];//Initialize empty users
@@ -41,6 +42,16 @@ window.clearCart = clearCart;
  * loading windows on page load
  */
 window.onload = function () {
+    //checking localstorage for products
+    if(!localStorage.getItem("products")){
+        localStorage.setItem("products",JSON.stringify(productsArr));
+    }
+
+    if(localStorage.getItem("products")){
+        products = JSON.parse(localStorage.getItem("products"));//parsing JSON data
+    }
+    
+
     //checking localstorage for cart
     if(localStorage.getItem("cart")){
         cart = JSON.parse(localStorage.getItem("cart"));//parsing JSON data

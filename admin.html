@@ -11,7 +11,7 @@
     <div class="sidebar">
         <h2>Admin Dashboard</h2>
         <ul>
-            <li class="active">🏠 Dashboard</li>
+            <li onclick="dashboard()" class="active">🏠 Dashboard</li>
             <li onclick="listProduct()">📦 Product List</li>
             <li onclick="addProduct()">➕ Product Add</li>
         </ul>
@@ -27,7 +27,22 @@
             </div>
         </div>
         <div class="content">
-            <p id="adminWelcome"></p>
+            <div id="dashboardSection" class="content-section"></div>
+            <div id="productListSection" class="content-section">
+                <table class="product-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Category</th>
+                            <th>Price</th>
+                            <th>Stock</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="productTable"></tbody>
+                </table>
+            </div>
+            <div id="productAddSection" class="content-section"></div>
         </div>
     </div>
 
@@ -35,6 +50,6 @@
     
     <!-- <button onclick="logoutAdmin()">Logout</button> -->
 
-    <script src="./admin-script.js"></script>
+    <script src="./admin-script.js" type="module"></script>
 </body>
 </html>
