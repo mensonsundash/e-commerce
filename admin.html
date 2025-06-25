@@ -12,8 +12,7 @@
         <h2>Admin Dashboard</h2>
         <ul>
             <li onclick="dashboard()" class="active">🏠 Dashboard</li>
-            <li onclick="listProduct()">📦 Product List</li>
-            <li onclick="addProduct()">➕ Product Add</li>
+            <li onclick="listProduct()">📦 Products</li>
         </ul>
     </div>
 
@@ -32,7 +31,7 @@
                 <h2>Product List</h2>
                 <div class="top-header">
                     <input type="text" id="searchInput" class="search-input" placeholder="Search products by name or category ..." />
-                    <button onclick="addProduct()" class="addProduct-btn"><span>➕</span> <span>Add</span></button>
+                    <button onclick="addProductModal()" class="addProduct-btn"><span>➕</span> <span>Add</span></button>
                 </div>
                 <table class="product-table">
                     <thead>
@@ -52,7 +51,20 @@
     </div>
 
 
-    
+    <!--FORM MODAL-->
+    <div id="productModal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('productModal')">&times;</span>
+            <h3 id="productHeader">Add Product</h3>
+            <form id="productForm">
+                <input type="text" id="productName" placeholder="Name" required />
+                <input type="text" id="productCategory" placeholder="Category" required />
+                <input type="text" id="productPrice" placeholder="Price" required />
+                <input type="text" id="productStock" placeholder="Stock" required />
+                <button type="submit" id="productSubmit">Add</button>
+            </form>
+        </div>
+    </div>
     <!-- <button onclick="logoutAdmin()">Logout</button> -->
 
     <script src="./admin-script.js" type="module"></script>

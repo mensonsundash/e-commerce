@@ -2,6 +2,7 @@ import { productsArr } from "./sample-product.js";
 //variable DECLARATION
 let products = [];
 let loggedInUser = null;
+let editingId = null;
 
 /**
  * added to global window with global scope to functions 
@@ -11,9 +12,13 @@ let loggedInUser = null;
 window.toggleProfile = toggleProfile;
 window.logoutAdmin = logoutAdmin;
 window.listProduct = listProduct;
+window.addProductModal = addProductModal;
 window.addProduct = addProduct;
+window.editProduct = editProduct;
 window.dashboard = dashboard;
-
+window.openModal = openModal;
+window.closeModal = closeModal;
+window.resetForm = resetForm;
 /**
  * Loading windows on PAGELOAD
  */
@@ -41,6 +46,11 @@ window.onload = function() {
         document.getElementById("dashboardSection").textContent = `Welcome, ${loggedInUser.name}`;
 
     }
+
+    
+
+    // document.getElementById("productForm").addEventListener("submit", addProduct);
+    
 }
 
 /**
@@ -72,38 +82,158 @@ function dashboard() {
 function listProduct() {
     showSection("productListSection");
 
+    document.getElementById("searchInput").addEventListener("input", getFilteredProducts)
+    
+    getFilteredProducts();
+}
+
+function getFilteredProducts() {
+    let filtered = [...products];
+
+    const search = document.getElementById("searchInput").value;
+
+    if(search) filtered = searchByKeywords(filtered, search);
+
+    renderProducts(filtered);
+}
+
+function searchByKeywords(filterProduct, keywords){
+    const keywordsLower = keywords.toLowerCase();
+    if(!Array.isArray(filterProduct) || !keywords) return filterProduct;
+
+    return filterProduct.filter( p => {
+        const productName = p.name.toLowerCase();;
+        const category = p.category.toLowerCase();
+
+        return productName.includes(keywordsLower) || category.includes(keywordsLower);
+    });
+
+}
+
+function renderProducts(ProductArray) {
     const tableBody = document.getElementById("productTable");
     tableBody.innerHTML = "";
 
-    if(products){
-        products.forEach(product => {
-            const tr = document.createElement("tr");
-            tr.innerHTML = `
-                <td>${product.name}</td>
-                <td>${product.category}</td>
-                <td>$${product.price.toFixed(2)}</td>
-                <td>${parseInt(product.inStock)}</td>
-                <td>
-                    <button class="action-btn edit-btn" onclick="editProduct(${product.id})">Edit</button>
-                    <button class="action-btn delete-btn" onclick="deleteProduct(${product.id})">Delete</button>
-                </td>
-            `;
-            
-                
-                tableBody.appendChild(tr);
-            }
-            
-        );
-        
+    if(ProductArray.length === 0){
+        tableBody.innerHTML = "No Products found."
     }
+
+    
+    ProductArray.forEach(product => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+            <td>${product.name}</td>
+            <td>${product.category}</td>
+            <td>$${product.price.toFixed(2)}</td>
+            <td>${parseInt(product.inStock)}</td>
+            <td>
+                <button class="action-btn edit-btn" onclick="editProduct(${product.id})">Edit</button>
+                <button class="action-btn delete-btn" onclick="deleteProduct(${product.id})">Delete</button>
+            </td>
+        `;
+        
+            
+            tableBody.appendChild(tr);
+        }
+        
+    );
+    
 }
-function addProduct(){
+
+function openModal(modalId){
+    document.getElementById(modalId).classList.remove('hidden');
+}
+
+function closeModal(modalId) {
+    document.getElementById(modalId).classList.add('hidden');
+}
+
+function addProductModal(){
+    openModal("productModal");
+    resetForm("productForm");
+    document.getElementById("productForm").addEventListener("submit", addProduct);
+}
+
+function addProduct(e){
+    e.preventDefault();
+
+    const name = document.getElementById("productName").value.trim();
+    const category = document.getElementById("productCategory").value.trim();
+    const price = parseFloat(document.getElementById("productPrice").value || 0);
+    const inStock = parseInt(document.getElementById("productStock").value || 0);
+
+    if(!name || !category || !price || !inStock){
+        alert("All field are required.");
+        return;
+    }
+    const newProduct = {
+        id: Date.now(),
+        name,
+        category,
+        price,
+        inStock
+    };
+
+    products.push(newProduct);
+
+    localStorage.setItem("products", JSON.stringify(products));
+    listProduct();
+    closeModal("productModal");
+
+}
+function editProduct(productId) {
+    openModal("productModal");
+    editingId = productId;
+    const productHeader = document.getElementById("productHeader");
+    const productSubmit = document.getElementById("productSubmit");
+    productHeader.textContent = "Update Product";
+    productSubmit.textContent = "Update";
+
+    const product = products.find(p => p.id === productId)
+    document.getElementById("productName").value = product.name;
+    document.getElementById("productCategory").value = product.category;
+    document.getElementById("productPrice").value = product.price;
+    document.getElementById("productStock").value = product.inStock;
+
+    // calling event listenere for submit to call update function
+    document.getElementById("productForm").addEventListener("submit", updateProduct);
+    
+}
+function updateProduct(e){
+    e.preventDefault();
+
+    const indexing = products.findIndex(p => p.id === editingId);
+    if(indexing !== -1){
+        const name = document.getElementById("productName").value.trim();
+        const category = document.getElementById("productCategory").value.trim();
+        const price = parseFloat(document.getElementById("productPrice").value.trim());
+        const inStock = parseInt(document.getElementById("productStock").value.trim());
+
+        if(!name || !category || !price || !inStock){
+            alert("All field are required.");
+            return;
+        }
+
+        products[indexing] = {
+            id: editingId,
+            name,
+            category,
+            price,
+            inStock
+        };
+
+        localStorage.setItem("products", JSON.stringify(products));
+        listProduct();
+        closeModal("productModal");
+    }
+    
 
 }
 
-function updateProduct(){
-
+function resetForm(formId){
+    document.getElementById(formId).reset();
 }
+
 
 function deleteProduct(id) {
 
