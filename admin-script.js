@@ -15,6 +15,7 @@ window.listProduct = listProduct;
 window.addProductModal = addProductModal;
 window.addProduct = addProduct;
 window.editProduct = editProduct;
+window.deleteProduct = deleteProduct;
 window.dashboard = dashboard;
 window.openModal = openModal;
 window.closeModal = closeModal;
@@ -46,10 +47,6 @@ window.onload = function() {
         document.getElementById("dashboardSection").textContent = `Welcome, ${loggedInUser.name}`;
 
     }
-
-    
-
-    // document.getElementById("productForm").addEventListener("submit", addProduct);
     
 }
 
@@ -88,7 +85,7 @@ function listProduct() {
 }
 
 function getFilteredProducts() {
-    let filtered = [...products];
+    let filtered = [...products];//spread operator to make separate from original variable `products`
 
     const search = document.getElementById("searchInput").value;
 
@@ -147,8 +144,15 @@ function openModal(modalId){
 function closeModal(modalId) {
     document.getElementById(modalId).classList.add('hidden');
 }
-
+/**
+ * Admin panel Product controls
+ */
 function addProductModal(){
+    const productHeader = document.getElementById("productHeader");
+    const productSubmit = document.getElementById("productSubmit");
+    productHeader.textContent = "Add Product";
+    productSubmit.textContent = "Add";
+
     openModal("productModal");
     resetForm("productForm");
     document.getElementById("productForm").addEventListener("submit", addProduct);
@@ -181,6 +185,7 @@ function addProduct(e){
     closeModal("productModal");
 
 }
+
 function editProduct(productId) {
     openModal("productModal");
     editingId = productId;
@@ -236,6 +241,13 @@ function resetForm(formId){
 
 
 function deleteProduct(id) {
+    const index = products.findIndex(p => p.id === id);
+    const producFind = products.find(p => p.id === id);
+    if(confirm(`Are you sure? you want to delete ${producFind.name}.`)) {
+        products.splice(index, 1)
+        localStorage.setItem("products", JSON.stringify(products));
+        listProduct();
+    }
 
 }
 
