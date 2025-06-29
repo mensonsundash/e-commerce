@@ -1,4 +1,5 @@
 import { productsArr } from "./sample-product.js";
+
 //variable DECLARATION
 let products = [];
 let loggedInUser = null;
@@ -25,9 +26,9 @@ window.resetForm = resetForm;
  */
 window.onload = function() {
 
-    showSection("dashboardSection");//loading defautl dashboard by making all other tabs hidden
-
-    if(!localStorage.getItem("products")){
+    showSection("dashboardSection");//loading default dashboard by making all other tabs hidden
+    
+    if(!localStorage.getItem("products") || JSON.parse(localStorage.getItem("products")).length === 0){
         localStorage.setItem("products", JSON.stringify(productsArr));
     }
 
@@ -51,7 +52,7 @@ window.onload = function() {
 }
 
 /**
- * UTILITIES function
+ * UTILITY functions
  */
 
 function toggleProfile() {
@@ -63,25 +64,6 @@ function toggleProfile() {
 function logoutAdmin() {
     sessionStorage.removeItem("loggedInUser");
     window.location.href = "index.html"
-}
-
-
-/**
- * PRODUCT functions
- */
-function dashboard() {
-    showSection("dashboardSection");
-
-    let dashboard = document.getElementById("dashboardSection");
-    
-    dashboard.textContent = `Welcome, ${loggedInUser.name}`;
-}
-function listProduct() {
-    showSection("productListSection");
-
-    document.getElementById("searchInput").addEventListener("input", getFilteredProducts)
-    
-    getFilteredProducts();
 }
 
 function getFilteredProducts() {
@@ -143,7 +125,36 @@ function openModal(modalId){
 
 function closeModal(modalId) {
     document.getElementById(modalId).classList.add('hidden');
+    resetForm("productForm");
 }
+
+function resetForm(formId){
+    editingId = null;
+    document.getElementById(formId).reset();
+}
+
+
+/**
+ * PRODUCT Navigation functions
+ */
+function dashboard() {
+    showSection("dashboardSection");
+
+    let dashboard = document.getElementById("dashboardSection");
+    
+    dashboard.textContent = `Welcome, ${loggedInUser.name}`;
+}
+
+function listProduct() {
+    showSection("productListSection");
+
+    document.getElementById("searchInput").addEventListener("input", getFilteredProducts)
+    
+    getFilteredProducts();
+}
+
+
+
 /**
  * Admin panel Product controls
  */
@@ -153,8 +164,9 @@ function addProductModal(){
     productHeader.textContent = "Add Product";
     productSubmit.textContent = "Add";
 
-    openModal("productModal");
     resetForm("productForm");
+    openModal("productModal");
+    
     document.getElementById("productForm").addEventListener("submit", addProduct);
 }
 
@@ -170,6 +182,14 @@ function addProduct(e){
         alert("All field are required.");
         return;
     }
+
+    //restricting duplicate product
+    const existinProduct = products.find(p => p.name.toLowerCase() === name.toLowerCase() && p.category.toLowerCase() === category.toLowerCase());
+    if(existinProduct){
+        alert(`"${existinProduct.name}" already Exist with "${existinProduct.category}" category.`);
+        return;
+    }
+    
     const newProduct = {
         id: Date.now(),
         name,
@@ -181,8 +201,9 @@ function addProduct(e){
     products.push(newProduct);
 
     localStorage.setItem("products", JSON.stringify(products));
-    listProduct();
+    
     closeModal("productModal");
+    listProduct();
 
 }
 
@@ -218,6 +239,13 @@ function updateProduct(e){
             alert("All field are required.");
             return;
         }
+        
+        //restricting duplicate product
+        const existinProduct = products.find(p => p.name.toLowerCase() === name.toLowerCase() && p.category.toLowerCase() === category.toLowerCase());
+        if(existinProduct){
+            alert(`"${existinProduct.name}" already Exist with "${existinProduct.category}" category.`);
+            return;
+        }
 
         products[indexing] = {
             id: editingId,
@@ -228,25 +256,29 @@ function updateProduct(e){
         };
 
         localStorage.setItem("products", JSON.stringify(products));
-        listProduct();
+        
         closeModal("productModal");
+        listProduct();
     }
     
 
 }
 
-function resetForm(formId){
-    document.getElementById(formId).reset();
-}
-
-
 function deleteProduct(id) {
     const index = products.findIndex(p => p.id === id);
     const producFind = products.find(p => p.id === id);
-    if(confirm(`Are you sure? you want to delete ${producFind.name}.`)) {
-        products.splice(index, 1)
-        localStorage.setItem("products", JSON.stringify(products));
-        listProduct();
+    const timeout = 500;// 500 ms = 5 s
+    if(confirm(`Are you sure? you want to delete "${producFind.name}".`)) {
+        
+        setTimeout(() => {
+            if(index !== -1){
+                products.splice(index, 1)
+                localStorage.setItem("products", JSON.stringify(products));
+                listProduct();
+            }
+        }, timeout);
+
+        
     }
 
 }
@@ -258,4 +290,3 @@ function showSection (sectionId) {
     const targetSection = document.getElementById(sectionId);
     if(targetSection) targetSection.classList.remove("hidden");
 }
-

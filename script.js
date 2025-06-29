@@ -43,14 +43,13 @@ window.clearCart = clearCart;
  */
 window.onload = function () {
     //checking localstorage for products
-    if(!localStorage.getItem("products")){
-        localStorage.setItem("products",JSON.stringify(productsArr));
+    if(!localStorage.getItem("products") || JSON.parse(localStorage.getItem("products")).length === 0){
+        localStorage.setItem("products", JSON.stringify(productsArr));
     }
 
     if(localStorage.getItem("products")){
-        products = JSON.parse(localStorage.getItem("products"));//parsing JSON data
+        products = JSON.parse(localStorage.getItem("products"));
     }
-    
 
     //checking localstorage for cart
     if(localStorage.getItem("cart")){
