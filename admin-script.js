@@ -290,3 +290,10 @@ function showSection (sectionId) {
     const targetSection = document.getElementById(sectionId);
     if(targetSection) targetSection.classList.remove("hidden");
 }
+
+
+/**
+ * exporting functions to be used in module
+ */
+
+export { searchByKeywords }
