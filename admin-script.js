@@ -1,7 +1,7 @@
 import { productsArr } from "./sample-product.js";
 
 //variable DECLARATION
-let products = [];
+export let products = [];
 let loggedInUser = null;
 let editingId = null;
 
@@ -94,7 +94,8 @@ function renderProducts(ProductArray) {
     tableBody.innerHTML = "";
 
     if(ProductArray.length === 0){
-        tableBody.innerHTML = "No Products found."
+        tableBody.innerHTML = "No Products found.";
+        return;
     }
 
     
@@ -111,12 +112,8 @@ function renderProducts(ProductArray) {
             </td>
         `;
         
-            
-            tableBody.appendChild(tr);
-        }
-        
-    );
-    
+        tableBody.appendChild(tr);
+    });
 }
 
 function openModal(modalId){
@@ -179,7 +176,7 @@ function addProduct(e){
     const inStock = parseInt(document.getElementById("productStock").value || 0);
 
     if(!name || !category || !price || !inStock){
-        alert("All field are required.");
+        alert("All fields are required.");
         return;
     }
 
@@ -296,4 +293,4 @@ function showSection (sectionId) {
  * exporting functions to be used in module
  */
 
-export { searchByKeywords }
+export { searchByKeywords, addProduct, updateProduct, deleteProduct, renderProducts }
