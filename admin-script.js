@@ -219,13 +219,14 @@ function editProduct(productId) {
     document.getElementById("productStock").value = product.inStock;
 
     // calling event listenere for submit to call update function
-    document.getElementById("productForm").addEventListener("submit", updateProduct);
+    document.getElementById("productForm").addEventListener("submit", (e) => updateProduct(e, editingId));
     
 }
-function updateProduct(e){
+function updateProduct(e, editId = null){
     e.preventDefault();
 
-    const indexing = products.findIndex(p => p.id === editingId);
+    const editCheckId = editId ?? editingId; //if editId is null fallback to global editingId value
+    const indexing = products.findIndex(p => p.id === editCheckId);
     if(indexing !== -1){
         const name = document.getElementById("productName").value.trim();
         const category = document.getElementById("productCategory").value.trim();
@@ -238,14 +239,14 @@ function updateProduct(e){
         }
         
         //restricting duplicate product
-        const existinProduct = products.find(p => p.name.toLowerCase() === name.toLowerCase() && p.category.toLowerCase() === category.toLowerCase());
+        const existinProduct = products.find(p => p.id !== editCheckId && p.name.toLowerCase() === name.toLowerCase() && p.category.toLowerCase() === category.toLowerCase());
         if(existinProduct){
             alert(`"${existinProduct.name}" already Exist with "${existinProduct.category}" category.`);
             return;
         }
 
         products[indexing] = {
-            id: editingId,
+            id: editCheckId,
             name,
             category,
             price,
