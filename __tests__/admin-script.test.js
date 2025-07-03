@@ -244,3 +244,71 @@ describe('updateProduct', () => {
     });
 
 });
+
+describe("deleteProduct", () => {
+    beforeEach(() => {
+        products.length = 0;
+        localStorage.clear();
+
+        products.push({
+            id: 123,
+            name: "Shirt",
+            category: "Clothing",
+            price: 25,
+            inStock: 10
+        });
+        //as after delete has product list section included `listProduct() so all DOM is included`
+        document.body.innerHTML = `
+        <div id="productListSection" class="content-section">
+            <h2>Product List</h2>
+            <div class="top-header">
+                <input type="text" id="searchInput" class="search-input" placeholder="Search products by name or category ..." />
+                <button onclick="addProductModal()" class="addProduct-btn"><span>➕</span> <span>Add</span></button>
+            </div>
+            <table class="product-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                        <th>Stock</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="productTable"></tbody>
+            </table>
+        </div>`;
+    });
+
+    test("deletes product when confirmed", () => {
+        const confirmMock = jest.spyOn(window, 'confirm').mockReturnValue(true);
+        jest.useFakeTimers();
+
+        deleteProduct(123);
+
+        jest.runAllTimers(); //fast-forward timers
+
+        expect(products.length).toBe(0);
+
+        const stored = JSON.parse(localStorage.getItem("products"));
+        expect(stored).toEqual([]); //No product
+
+        confirmMock.mockRestore();
+        jest.useRealTimers();
+    });
+
+    test("does not delete product when cancelled", () => {
+        const confirmMock = jest.spyOn(window, 'confirm').mockReturnValue(false);
+          
+        jest.useFakeTimers();
+
+        deleteProduct(123);
+
+        jest.runAllTimers();
+
+        expect(products.length).toBe(1); //product still there
+
+        confirmMock.mockRestore();
+        jest.useRealTimers();
+    });
+});
