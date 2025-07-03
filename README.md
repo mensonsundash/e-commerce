@@ -47,6 +47,7 @@ This project demonstrates key frontend engineering skills including modular desi
 - `localStorage` and `sessionStorage` for data persistence
 - Node.js & Jest for unit testing
 
+---
 
 🧪 Unit Testing Setup
 This project includes a Jest configuration and package.json with test scripts.
