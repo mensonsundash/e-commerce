@@ -1,7 +1,9 @@
 import { jest }from "@jest/globals";
 import { searchByKeywords, renderProducts, addProduct, updateProduct, deleteProduct, products  } from "../admin-script.js";
 
+//grouping searchByKeywords test
 describe("searchByKeywords", () => {
+
     const mockProducts = [
         { id: 1, name: 'Shirt', category: 'clothing' },
         { id: 2, name: 'TV', category: 'electronics' },
@@ -10,6 +12,7 @@ describe("searchByKeywords", () => {
 
     test('search products by keywords', () => {
         const result = searchByKeywords(mockProducts, "clothing");
+        //assertion
         expect(result).toEqual([
             { id: 1, name: 'Shirt', category: 'clothing' },
             { id: 3, name: 'Jeans', category: 'clothing' }
@@ -18,10 +21,12 @@ describe("searchByKeywords", () => {
 
     test('returns all products if no keywords is given', () => {
         const result = searchByKeywords(mockProducts, "");
+        //assertion
         expect(result).toEqual(mockProducts);
     });
 });
 
+//grouping renderProducts test
 describe("renderProducts",  () =>  {
     beforeEach( ()=> {
         document.body.innerHTML = `
@@ -38,6 +43,7 @@ describe("renderProducts",  () =>  {
         renderProducts(mockProducts);
 
         const rows = document.querySelectorAll("#productTable tr");
+        //assertions
         expect(rows.length).toBe(1);//check if exactly 1 <tr> table row was added to the table.
         expect(rows[0].innerHTML).toContain("Shirt");
         expect(rows[0].innerHTML).toContain("Clothing");
@@ -47,11 +53,12 @@ describe("renderProducts",  () =>  {
     test('shows no products found if array is empty', () => {
         renderProducts([]);
         const tableBody = document.getElementById("productTable");
+        //assertion
         expect(tableBody.innerHTML).toBe("No Products found.");
     });
 });
 
-
+//grouping addProduct test
 describe("addProduct", ()  => {
 
     let form;
@@ -61,7 +68,7 @@ describe("addProduct", ()  => {
         products.length = 0;
         localStorage.clear();
 
-        //set up DOM element as a fake HTML structure so the function has a DOM to interact with.
+        //set up mocked DOM element as a fake HTML structure so the function has a DOM to interact with.
         document.body.innerHTML = `
         <div id="productListSection" class="content-section">
             <h2>Product List</h2>
@@ -99,10 +106,11 @@ describe("addProduct", ()  => {
     });
     
     test('adds a new product to products array and localStorage', () => {
-        const event = { preventDefault: jest.fn() };
+        const event = { preventDefault: jest.fn() }; //Event mocked
         
         addProduct(event)
 
+        //assertions
         expect(products.length).toBe(1);
         expect(products[0].name).toBe("Shirt");
 
@@ -111,12 +119,13 @@ describe("addProduct", ()  => {
     });
 
     test("prevents duplicate product addition", () => {
-        const alertMock = jest.spyOn(window, 'alert').mockImplementation(() => {});
+        const alertMock = jest.spyOn(window, 'alert').mockImplementation(() => {}); //Browser APIs mocked
 
-        const event = { preventDefault: jest.fn() };
+        const event = { preventDefault: jest.fn() }; //Event mocked
         addProduct(event); //first product add
         addProduct(event); //second product attempt (same product))
 
+        //assertions
         expect(alertMock).toHaveBeenCalled();
 
         expect(products.length).toBe(1); //still only 1 product
@@ -125,11 +134,12 @@ describe("addProduct", ()  => {
 
     test("prevents adding if required fields are missing", () => {
         document.getElementById("productName").value ="";
-        const event = { preventDefault: jest.fn() };
+        const event = { preventDefault: jest.fn() }; //Event mocked
 
-        const alertMock = jest.spyOn(window, 'alert').mockImplementation(() => {});
+        const alertMock = jest.spyOn(window, 'alert').mockImplementation(() => {}); //Browser APIs mocked
         addProduct(event);
 
+        //assertions
         expect(alertMock).toHaveBeenCalledWith("All fields are required.");
         expect(products.length).toBe(0);
 
@@ -139,6 +149,7 @@ describe("addProduct", ()  => {
 
 });
 
+//grouping updateProduct test
 describe('updateProduct', () => {
     
     beforeEach( () => {
@@ -193,9 +204,11 @@ describe('updateProduct', () => {
     });
     
     test('updates product and saves to localStorage', () => {
-        const event = { preventDefault: jest.fn() };
+        const event = { preventDefault: jest.fn() }; //Event mocked
         
         updateProduct(event, editingId);
+
+        //assertions
         expect(products[0].name).toBe("New Shirt");
         expect(products[0].category).toBe("New Clothing");
 
@@ -217,11 +230,12 @@ describe('updateProduct', () => {
         document.getElementById("productName").value = "Duplicate";
         document.getElementById("productCategory").value = "New Clothing";
 
-        const alertMock = jest.spyOn(window, 'alert').mockImplementation(() => {});
-        const event = { preventDefault: jest.fn() };
+        const alertMock = jest.spyOn(window, 'alert').mockImplementation(() => {}); //Browser APIs mocked
+        const event = { preventDefault: jest.fn() }; //Event mocked
 
         updateProduct(event, editingId);
         
+        //assertions
         expect(alertMock).toHaveBeenCalled();
         expect(products[0].name).toBe("Old Shirt"); //didn't update
         expect(products[1].name).toBe("Duplicate"); //didn't update
@@ -232,11 +246,12 @@ describe('updateProduct', () => {
     test("prevent update when required fields are missing", () => {
         document.getElementById("productName").value = "";
 
-        const alertMock = jest.spyOn(window, 'alert').mockImplementation( () => {} );
-        const event = { preventDefault: jest.fn() };
+        const alertMock = jest.spyOn(window, 'alert').mockImplementation( () => {} ); //Browser APIs mocked
+        const event = { preventDefault: jest.fn() }; //Event mocked
 
         updateProduct(event, editingId);
 
+        //assertions
         expect(alertMock).toHaveBeenCalledWith("All field are required.");
         expect(products[0].name).toBe("Old Shirt");
 
@@ -245,6 +260,7 @@ describe('updateProduct', () => {
 
 });
 
+//grouping deleteProduct test
 describe("deleteProduct", () => {
     beforeEach(() => {
         products.length = 0;
@@ -281,13 +297,14 @@ describe("deleteProduct", () => {
     });
 
     test("deletes product when confirmed", () => {
-        const confirmMock = jest.spyOn(window, 'confirm').mockReturnValue(true);
+        const confirmMock = jest.spyOn(window, 'confirm').mockReturnValue(true); //Browser APIs mocked
         jest.useFakeTimers();
 
         deleteProduct(123);
 
         jest.runAllTimers(); //fast-forward timers
 
+        //assertions
         expect(products.length).toBe(0);
 
         const stored = JSON.parse(localStorage.getItem("products"));
@@ -298,7 +315,7 @@ describe("deleteProduct", () => {
     });
 
     test("does not delete product when cancelled", () => {
-        const confirmMock = jest.spyOn(window, 'confirm').mockReturnValue(false);
+        const confirmMock = jest.spyOn(window, 'confirm').mockReturnValue(false); //Browser APIs mocked
           
         jest.useFakeTimers();
 
@@ -306,6 +323,7 @@ describe("deleteProduct", () => {
 
         jest.runAllTimers();
 
+        //assertion
         expect(products.length).toBe(1); //product still there
 
         confirmMock.mockRestore();
