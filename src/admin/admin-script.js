@@ -1,5 +1,5 @@
-import { productsArr } from "./sample-product.js";
-
+import { productsArr } from "../../original_code/sample-product.js";
+import { redirectToHome } from "../common/utils.js";
 //variable DECLARATION
 export let products = [];
 let loggedInUser = null;
@@ -42,7 +42,7 @@ window.onload = function() {
     
     if(!loggedInUser || loggedInUser.role !== "admin"){
         alert('Access denied. Only admins allowed.')
-        window.location.href = "index.html";
+        window.location.href = "./index.html";
         
     } else {
         document.getElementById("dashboardSection").textContent = `Welcome, ${loggedInUser.name}`;
@@ -63,7 +63,8 @@ function toggleProfile() {
 
 function logoutAdmin() {
     sessionStorage.removeItem("loggedInUser");
-    window.location.href = "index.html"
+    // window.location.href = "./index.html"
+    redirectToHome();
 }
 
 function getFilteredProducts() {

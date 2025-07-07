@@ -1,14 +1,14 @@
 import { loadProduct, getFilteredProducts } from "./products.js";
 import { loadCart, toggleCart } from "./cart.js";
 import { loadWishlist, toggleWishlist } from "./wishlist.js";
-import { renderCartSummary } from "./dom.js";
-import { renderWishlist } from "./dom.js";
-import { loadUser, loadLoggedInUser, loginUser, registerUser } from "./auth.js";
+import { renderCartSummary } from "../common/dom.js";
+import { renderWishlist } from "../common/dom.js";
+import { loadUser, loadLoggedInUser, loginUser, registerUser, updateAuthUI } from "../common/auth.js";
 
 import * as cartModule from './cart.js';
 import * as wishlistModule from './wishlist.js';
-import * as authModule from './auth.js'
-import * as domModule from './dom.js'
+import * as authModule from '../common/auth.js'
+import * as domModule from '../common/dom.js'
 
 
 /**
@@ -38,6 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
     loadWishlist();
     loadUser();
     loadLoggedInUser();
+    updateAuthUI();
 
     //rendering products list, cart & wishlist summary
     getFilteredProducts();

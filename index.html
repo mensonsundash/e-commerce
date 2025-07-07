@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>E-Commerce</title>
-    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="./src/css/style.css" />
 </head>
 <body>
     <h1>🛍️ Product Catalog</h1>
@@ -49,12 +49,12 @@
 
     
     <!--Account Buttons-->
-    <div id="accountSection" class="account-section">
+    <div id="accountSection" class="account-section hidden">
         <button onclick="openModal('loginModal')" id="loginBtn">Login</button>
         <button onclick="openModal('registerModal')" id="registerBtn">Register</button>
     </div>
     <!-- USER PANEL-->
-     <div id="userPanel" class="user-panel hidden">
+     <div id="userPanel" class="user-panel ">
         <p id="welcomeText"></p>
         <button onclick="logoutUser()" id="logoutBtn">Logout</button>
      </div>
@@ -138,6 +138,6 @@
         
     
 
-    <script type="module" src="./src/main.js"></script>
+    <script type="module" src="./src/user/main.js"></script>
 </body>
 </html>

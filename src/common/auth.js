@@ -41,7 +41,7 @@ function registerUser(e){
     };
 
     users.push(newUser);
-    // localStorage.setItem("users", JSON.stringify(users));
+    
     setToStorage("users", users);
     alert("Registration successful! Please log in.");
     closeModal("registerModal");
@@ -63,14 +63,12 @@ function loginUser(e){
 
     loggedInUser = user;
     
-    // localStorage.setItem("loggedInUser", JSON.stringify(loggedInUser));
-    // sessionStorage.setItem("loggedInUser", JSON.stringify(loggedInUser));
     setToSession("loggedInUser", loggedInUser);
     accountSection.classList.add("hidden");
     alert(`Welcome ${loggedInUser.name}`);
 
     if(user.role === "admin"){
-        window.location.href = "admin.html" //redirect to admin panel
+        window.location.href = "./src/admin/admin.html" //redirect to admin panel
     }else if(user.role === "user") {
         closeModal('loginModal');
         resetForm('loginForm');
@@ -101,15 +99,12 @@ function updateAuthUI(){
         userPanel.classList.remove("hidden");
         accountSection.classList.add("hidden");
         welcomeText.textContent = `Welcome, ${loggedInUser.name}`;
-        // closeModal('registerModal');
-        // closeModal('loginModal');
     }else{
         userPanel.classList.add("hidden");
         accountSection.classList.remove("hidden");
-        // openModal('registerModal');
-        // openModal('loginModal');
     }
+    // window.location.href = "./index.html" //redirect to admin panel
 }
 
-export { loadUser, loadLoggedInUser, registerUser, loginUser, logoutUser }
+export { loadUser, loadLoggedInUser, registerUser, loginUser, logoutUser, updateAuthUI }
 

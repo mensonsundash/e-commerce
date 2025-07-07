@@ -1,5 +1,5 @@
-import { cart, handleAddToCart, updateQuantity, removeFromCart, clearCart } from "./cart.js";
-import { wishlist, handleWishlist, removeFromWishlist, clearWishlist } from "./wishlist.js";
+import { cart, handleAddToCart, updateQuantity, removeFromCart, clearCart } from "../user/cart.js";
+import { wishlist, handleWishlist, removeFromWishlist, clearWishlist } from "../user/wishlist.js";
 
 //display products UI Rendered
 function displayProducts(list) {

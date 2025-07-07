@@ -1,5 +1,5 @@
 import { jest }from "@jest/globals";
-import { searchByKeywords, renderProducts, addProduct, updateProduct, deleteProduct, products  } from "../admin-script.js";
+import { searchByKeywords, renderProducts, addProduct, updateProduct, deleteProduct, products  } from "../admin/admin-script.js";
 
 //grouping searchByKeywords test
 describe("searchByKeywords", () => {

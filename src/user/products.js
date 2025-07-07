@@ -1,6 +1,6 @@
-import { productsArr } from "./sample-product.js";
-import { getFromStorage, setToStorage } from "./utils.js";
-import { displayProducts } from "./dom.js";
+import { productsArr } from "../data/sample-product.js";
+import { getFromStorage, setToStorage } from "../common/utils.js";
+import { displayProducts } from "../common/dom.js";
 
 //Variable Declaration 
 export let products = [];//Initialize empty products array

@@ -1,6 +1,6 @@
-import { setToStorage, getFromStorage } from "./utils.js";
+import { setToStorage, getFromStorage } from "../common/utils.js";
 import { products } from "./products.js";
-import { renderWishlist } from "./dom.js";
+import { renderWishlist } from "../common/dom.js";
 
 export let wishlist = []; //Initialize empty wishlist
 
