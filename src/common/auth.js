@@ -5,12 +5,12 @@ export let users = [];//Initialize empty users
 export let loggedInUser = null;//Initialize empty logged in user
 
 function loadUser(){
-    const stored = getFromStorage('users');
+    const stored = getFromStorage('users', []);
     users = stored;
 }
 
 function loadLoggedInUser() {
-    const stored = getFromSession('loggedInUser');
+    const stored = getFromSession('loggedInUser', []);
     loggedInUser = stored;
 }
 
