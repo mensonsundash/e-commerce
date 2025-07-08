@@ -1,4 +1,4 @@
-import { setToStorage, getFromStorage, setToSession, getFromSession } from "./utils.js";
+import { setToStorage, getFromStorage, setToSession, getFromSession, redirectToHome } from "./utils.js";
 import { closeModal, resetForm } from "./dom.js";
 
 export let users = [];//Initialize empty users
@@ -90,6 +90,12 @@ function logoutUser() {
     updateAuthUI();
 }
 
+function logoutAdmin() {
+    sessionStorage.removeItem("loggedInUser");
+    // window.location.href = "./index.html"
+    redirectToHome();;
+}
+
 function updateAuthUI(){
     const accountSection = document.getElementById('accountSection');
     const userPanel = document.getElementById("userPanel");
@@ -106,5 +112,5 @@ function updateAuthUI(){
     // window.location.href = "./index.html" //redirect to admin panel
 }
 
-export { loadUser, loadLoggedInUser, registerUser, loginUser, logoutUser, updateAuthUI }
+export { loadUser, loadLoggedInUser, registerUser, loginUser, logoutUser, updateAuthUI, logoutAdmin }
 

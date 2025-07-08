@@ -1,5 +1,5 @@
-import { productsArr } from "../../original_code/sample-product.js";
-import { redirectToHome } from "../common/utils.js";
+import { productsArr } from "./sample-product.js";
+import { redirectToHome } from "../src/common/utils.js";
 //variable DECLARATION
 export let products = [];
 let loggedInUser = null;
@@ -55,9 +55,9 @@ window.onload = function() {
  * UTILITY functions
  */
 
-function toggleProfile() {
+function toggleProfile(toggleId) {
 
-    const popup = document.getElementById("profilePopup");
+    const popup = document.getElementById(toggleId);
     popup.classList.toggle("visible");
 }
 
