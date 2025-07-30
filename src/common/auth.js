@@ -68,7 +68,7 @@ function loginUser(e){
     alert(`Welcome ${loggedInUser.name}`);
 
     if(user.role === "admin"){
-        window.location.href = "./src/admin/admin.html" //redirect to admin panel
+        window.location.href = "./src/admin/index.html" //redirect to admin panel
     }else if(user.role === "user") {
         closeModal('loginModal');
         resetForm('loginForm');

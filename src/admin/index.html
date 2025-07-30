@@ -13,6 +13,7 @@
         <ul>
             <li onclick="dashboard()" class="active">🏠 Dashboard</li>
             <li onclick="listProduct()">📦 Products</li>
+            <li onclick="listUsers()">👤 Users</li>
         </ul>
     </div>
 
@@ -33,7 +34,7 @@
                     <input type="text" id="searchInput" class="search-input" placeholder="Search products by name or category ..." />
                     <button onclick="addProductModal()" class="addProduct-btn"><span>➕</span> <span>Add</span></button>
                 </div>
-                <table class="product-table">
+                <table class="table">
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -47,6 +48,22 @@
                 </table>
             </div>
             <div id="productAddSection" class="content-section"></div>
+            <div id="userListSection" class="content-section">
+                <h2>User List</h2>
+                <div class="top-header">
+                    <input type="text" id="searchInput" class="search-input" placeholder="Search User by name or role..." />
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Role</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="userTable"></tbody>
+                </table>
+            </div>
         </div>
     </div>
 
@@ -65,7 +82,7 @@
             </form>
         </div>
     </div>
-    <!-- <button onclick="logoutAdmin()">Logout</button> -->
+    
 
     <script src="./main.js" type="module"></script>
 </body>

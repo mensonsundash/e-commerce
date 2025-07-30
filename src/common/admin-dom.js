@@ -1,4 +1,5 @@
 import { getFilteredProducts } from "../admin/products.js";
+import { getFilteredUsers } from "../admin/users.js"
 import { loggedInUser } from "./auth.js";
 
 //ADMIN toggle for login/logout
@@ -7,6 +8,9 @@ function toggleProfile(toggleId) {
     popup.classList.toggle("visible");
 }
 
+/**
+ * PRODUCTS Rendering
+ */
 function renderProducts(ProductArray) {
     const tableBody = document.getElementById("productTable");
     tableBody.innerHTML = "";
@@ -34,6 +38,32 @@ function renderProducts(ProductArray) {
     });
 }
 
+/**
+ * USERS Rendering
+ */
+function renderUsers(userArray) {
+    const tableBody = document.getElementById("userTable");
+    tableBody.innerHTML = "";
+
+    if(userArray.length === 0){
+        tableBody.innerHTML = "No Users found.";
+        return;
+    }
+
+    userArray.forEach( user => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+            <td>${user.name}</td>
+            <td>${user.role}</td>
+            <td>
+                <button class="action-btn edit-btn" onClick="editUser(${user.id})">Edit</button>
+                <button class="action-btn delete-btn" onClick="deleteUser(${user.id})">Delete</button>
+            </td>
+        `;
+
+        tableBody.appendChild(tr);
+    });
+}
 
 /**
  * PRODUCT Navigation functions
@@ -54,6 +84,13 @@ function listProduct() {
     getFilteredProducts();
 }
 
+function listUsers() {
+    showSection("userListSection");
+
+    document.getElementById("searchInput").addEventListener("input", getFilteredUsers);
+    getFilteredUsers();
+}
+
 function showSection (sectionId) {
     const allSections = document.querySelectorAll('.content-section');
 
@@ -62,4 +99,4 @@ function showSection (sectionId) {
     if(targetSection) targetSection.classList.remove("hidden");
 }
 
-export { dashboard, listProduct, showSection, toggleProfile, renderProducts };
+export { dashboard, listProduct, listUsers, showSection, toggleProfile, renderProducts, renderUsers };

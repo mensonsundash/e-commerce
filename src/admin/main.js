@@ -1,8 +1,9 @@
-import { dashboard, listProduct, toggleProfile } from "../common/admin-dom.js";
+import { dashboard, listProduct, listUsers, toggleProfile } from "../common/admin-dom.js";
 import { loadLoggedInUser, loggedInUser, logoutAdmin } from "../common/auth.js";
 import { redirectToHome } from '../common/utils.js';
 import * as domModule from "../common/dom.js";
 import * as productModule from './products.js';
+import * as userModule from './users.js';
 
 
 /**
@@ -13,6 +14,7 @@ import * as productModule from './products.js';
 window.toggleProfile = toggleProfile;
 window.dashboard = dashboard;
 window.listProduct = listProduct;
+window.listUsers = listUsers;
 
 window.closeModal = domModule.closeModal;
 window.logoutAdmin = logoutAdmin;
@@ -24,6 +26,7 @@ window.deleteProduct = productModule.deleteProduct;
 document.addEventListener("DOMContentLoaded", () => {
     loadLoggedInUser();
     productModule.loadProduct();
+    userModule.loadUsers();
     
 
     if(!loggedInUser || loggedInUser.role !== "admin"){

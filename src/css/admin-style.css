@@ -174,7 +174,7 @@ form button:focus {
 }
 
 /* Product table */
-.product-table {
+.table {
   width: 100%;
   border-collapse: collapse;
   background-color: #fff;
@@ -183,15 +183,15 @@ form button:focus {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.06);
 }
 
-.product-table th,
-.product-table td {
+.table th,
+.table td {
   padding: 14px 16px;
   text-align: left;
   border-bottom: 1px solid #eaeaea;
   font-size: 14px;
 }
 
-.product-table th {
+.table th {
   background-color: #f8f9fa;
   color: #333;
   font-weight: 600;
@@ -199,7 +199,7 @@ form button:focus {
   letter-spacing: 0.5px;
 }
 
-.product-table tr:hover {
+.table tr:hover {
   background-color: #fcfcfc;
 }
 
